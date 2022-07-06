@@ -1,6 +1,7 @@
 import numpy as np
+import pandas as pd
 
-
+git
 def price_round(prices):
     """
     Округление до ближайшего числа вида XXX.99
