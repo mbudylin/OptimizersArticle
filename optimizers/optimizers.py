@@ -524,7 +524,7 @@ class CvxpyLpOptimizationModel:
 
         if self.x.value is None:
             return {
-                'message': str(problem.solution.attr['solver_specific_stats']['info']['infostring']),
+                'message': str(problem.solution.status),
                 'status': str(problem.status),
                 'model': problem,
                 'data': self.data,
@@ -539,7 +539,7 @@ class CvxpyLpOptimizationModel:
         self.data['x_opt'] = x_opt
 
         return {
-            'message': str(problem.solution.attr['solver_specific_stats']['info']['infostring']),
+            'message': str(problem.solution.status),
             'status': str(problem.status),
             'model': problem,
             'data': self.data,
