@@ -12,6 +12,15 @@ def timeit(function):
 
 @timeit
 def pricing_optimization(data, opt_model, opt_params, solver, solver_option={}):
+    """
+    Запуск расчета оптимальных цен с помощью указанного класса оптимизатора и параметров
+    :param data: входные данные для оптимизации
+    :param opt_model: класс модели оптимизатора
+    :param opt_params: параметры оптимизации
+    :param solver: солвер для оптиимзации
+    :param solver_option: параметры солвера
+    :return: словарь, возвращаемый моделью оптимизации
+    """
     alpha = opt_params['alpha']
     model = opt_model(data, alpha)
 
