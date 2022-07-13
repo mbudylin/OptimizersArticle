@@ -125,20 +125,23 @@ def plot_what_if(data):
 
     sales_diff = 100 * round(sales_total_new(data) / sales_total_current(data) - 1, 4)
     margin_diff = 100 * round(margin_total_new(data) / margin_total_current(data) - 1, 4)
+
+    pi = [(el['PI'] - 1.) * 100. for el in data]
+    E = [el['E'] for el in data]
+    small_index_cnt = sum([abs(pi_) <= 2. for pi_ in pi])
+
     e1_cnt = sum([1 if el['E'] <= -1 else 0 for el in data])
     e1_up_cnt = sum([1 if el['E'] <= -1 and (el['P_NEW'] > el['P0']) else 0 for el in data])
 
-    t0 = f'количество товаров: {len(data)}; кол-во с E <= -1: {e1_cnt} шт среди которых на повышение: {e1_up_cnt} шт'
-    t1 = f'Прогнозируемое изменение РТО на {sales_diff}%, ВД на {margin_diff}%'
-
-    a = [(el['PI'] - 1.) * 100. for el in data]
-    b = [el['E'] for el in data]
+    title = f'Количество товаров: {len(data)}; кол-во с E <= -1: {e1_cnt} шт среди которых на повышение: {e1_up_cnt} шт\n'
+    title += f'Прогнозируемое изменение РТО на {sales_diff}%, ВД на {margin_diff}%\n'
+    title += f'Количество изменений менее 2%: {small_index_cnt}'
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
-    fig.suptitle(f'{t0}\n {t1}')
-    sns.scatterplot(b, a, ax=ax1)
+    fig.suptitle(title, size=10)
+    sns.scatterplot(E, pi, ax=ax1)
     ax1.set_xlabel('E')
     ax1.set_ylabel('индекс')
     ax2.set_xlabel('индекс')
     ax2.set_ylabel('кол-во')
-    sns.histplot(a, bins=25, ax=ax2)
+    sns.histplot(pi, bins=25, ax=ax2)
