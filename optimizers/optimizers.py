@@ -110,7 +110,7 @@ class ScipyNlpOptimizationModel:
                 A[i_con, plu_idx1] = 1.
                 A[i_con, plu_idx2] = -1.
                 i_con += 1
-        constr = LinearConstraint(A, 0.0, 0.0)
+        constr = LinearConstraint(A, -0.0, 0.0)
         self.constraints.append(constr)
 
     def add_con_chg(self, chg_max=None):
