@@ -6,15 +6,29 @@ def price_round(prices):
     """
     Округление до ближайшего числа вида XXX.99
     """
+<<<<<<< HEAD
     prices_rounded = np.round(prices + 0.01) - 0.01
     return prices_rounded
 
 
 def generate_base_data(N_plu, seed=0):
+=======
+    frac_part, int_part = np.modf(prices)
+    prices_rounded = np.where(frac_part <= 0.5, int_part - 0.01, int_part + 0.99)
+    return prices_rounded
+
+
+def generate_data(N_plu, seed=0):
+>>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
     """
     Генерация данных для тестирования оптимизационной модели
     """
     np.random.seed(seed)
+<<<<<<< HEAD
+=======
+
+    np.random.seed(seed)
+>>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
     plu_cnt_in_line = np.random.poisson(0.29, N_plu) + 1
     plu_cnt_in_line = plu_cnt_in_line[np.cumsum(plu_cnt_in_line) <= N_plu]
     plu_cnt_in_line[-1] = N_plu - plu_cnt_in_line.sum() + plu_cnt_in_line[-1]
@@ -43,7 +57,11 @@ def generate_base_data(N_plu, seed=0):
 
 def construct_bounds(df, bounds_params):
     """
+<<<<<<< HEAD
     (1) Базовое ограничение изменения цен в +- main_bounds от текущей
+=======
+    (1) Базовое ограничение измения цен в +- main_bounds от текущей
+>>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
     (2) Цена должна попадать в диапазон +- market_bounds от цены конкурента/рыночной цены
     Если диапазоны не накладываются то приоритет у (1)
     """
@@ -70,7 +88,11 @@ def construct_bounds(df, bounds_params):
 
 def construct_lp_grid(df, bounds_params, grid_max_size=21):
     """
+<<<<<<< HEAD
     Формирует сетку значений для задачи ЛП
+=======
+    Формируем сетку значений для задачи ЛП
+>>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
     """
     df = df.copy().reset_index(drop=True)
 
@@ -137,6 +159,7 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
     ).reset_index()
 
     return df
+<<<<<<< HEAD
 
 
 def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
@@ -165,3 +188,5 @@ def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
     return {
         'data_nlp': data_nlp, 'data_lp': data_lp, 'plu_idx_in_line': plu_idx_in_line
     }
+=======
+>>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb

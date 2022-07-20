@@ -10,6 +10,7 @@ from data_generator.data_generator import (
     construct_bounds,
     construct_lp_grid
 )
+
 from optimizers.optimizers import (
     ScipyNlpOptimizationModel,
     PyomoNlpOptimizationModel,
@@ -25,7 +26,6 @@ N_GRID = [10, 20, 50, 100, 200, 500, 1000]
 # SEED_GRID = list(range(5))
 # N_GRID = [10, 20]
 GRID = product(N_GRID, SEED_GRID)
-
 BOUNDS_PARAMS = {
     'main_bounds': {
         'lower': 0.9, 'upper': 1.1
@@ -35,6 +35,7 @@ BOUNDS_PARAMS = {
     }
 }
 LP_MAX_GRID_SIZE = 21
+
 
 def get_keys(filepath_stat_dump):
     existed_stat = []
@@ -50,6 +51,7 @@ def optimizers_calc_stat(grid, filepath_stat_dump, overwrite=False):
 
     for N, seed in grid:
         dump_key = 's_' + str(N) + '_' + str(seed)
+
         # print(dump_key)
         # print(existed_stat)
         # assert ()
@@ -136,7 +138,6 @@ def optimizers_calc_stat(grid, filepath_stat_dump, overwrite=False):
 
 
 def optimizers_collect_stat(data_dump):
-
     existed_stat = get_keys(data_dump)
     df = pd.concat([pd.read_hdf(data_dump, df_name) for df_name in existed_stat])
     return df
