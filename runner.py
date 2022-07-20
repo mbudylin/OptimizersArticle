@@ -5,11 +5,7 @@ import pandas as pd
 
 sys.path.append('./OptimizersArticle')
 
-from data_generator.data_generator import (
-    generate_data,
-    construct_bounds,
-    construct_lp_grid
-)
+from data_generator.data_generator import generate_data
 
 from optimizers.optimizers import (
     ScipyNlpOptimizationModel,
@@ -19,7 +15,7 @@ from optimizers.optimizers import (
 )
 from optimizers.optimization import pricing_optimization
 
-DATA_DUMP = './data/dump.hdf'
+STAT_PATH = './data/stat'
 
 SEED_GRID = list(range(25))
 N_GRID = [10, 20, 50, 100, 200, 500, 1000]
@@ -37,26 +33,25 @@ BOUNDS_PARAMS = {
 LP_MAX_GRID_SIZE = 21
 
 
-def get_keys(filepath_stat_dump):
-    existed_stat = []
-    if os.path.exists(filepath_stat_dump):
-        with pd.HDFStore(filepath_stat_dump) as hdf:
-            existed_stat = list(hdf.keys())
-    return [el.replace('/', '') for el in existed_stat]
+def get_files(file_path):
+    files = []
+    if os.path.exists(file_path):
+        files = [f for f in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, f))]
+    return files
 
 
-def optimizers_calc_stat(grid, filepath_stat_dump, overwrite=False):
+def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
 
-    existed_stat = get_keys(filepath_stat_dump)
+    existed_files = set(get_files(file_path_stat))
 
     for N, seed in grid:
-        dump_key = 's_' + str(N) + '_' + str(seed)
+        file_name = 's_' + str(N) + '_' + str(seed) + '.csv'
 
         # print(dump_key)
         # print(existed_stat)
         # assert ()
         if not overwrite:
-            if dump_key in existed_stat:
+            if file_name in existed_files:
                 continue
         print('--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--')
         print(N, seed)
@@ -134,16 +129,17 @@ def optimizers_calc_stat(grid, filepath_stat_dump, overwrite=False):
             't': times,
             'status': statuses
         })
-        df.to_hdf(filepath_stat_dump, dump_key)
+        print(os.path.join(file_path_stat, file_name))
+        df.to_csv(os.path.join(file_path_stat, file_name), index=False)
 
 
-def optimizers_collect_stat(data_dump):
-    existed_stat = get_keys(data_dump)
-    df = pd.concat([pd.read_hdf(data_dump, df_name) for df_name in existed_stat])
+def optimizers_collect_stat(file_path_stat):
+    files_stat = get_files(file_path_stat)
+    df = pd.concat([pd.read_csv(os.path.join(file_path_stat, file_name)) for file_name in files_stat])
     return df
 
 
 if __name__ == '__main__':
 
-    optimizers_calc_stat(GRID, DATA_DUMP, overwrite=True)
-    stat_df = optimizers_collect_stat(DATA_DUMP)
+    optimizers_calc_stat(GRID, STAT_PATH, overwrite=True)
+    stat_df = optimizers_collect_stat(STAT_PATH)
