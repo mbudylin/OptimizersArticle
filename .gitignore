@@ -3,5 +3,5 @@
 .DS_Store
 __pycache__/
 .html
-/data/
+/data
 .html
