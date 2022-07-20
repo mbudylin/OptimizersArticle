@@ -14,12 +14,8 @@ class ScipyNlpOptimizationModel:
         if (alpha < 0.0) | (alpha > 1.0):
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
-<<<<<<< HEAD
         self.data = data['data_nlp'].copy()
         self.plu_idx_in_line = data['plu_idx_in_line'].copy()
-=======
-        self.data = data.copy()
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         self.N = len(self.data['plu'])
         self.plu = self.data['plu'].values
         self.P = self.data['P'].values
@@ -96,41 +92,19 @@ class ScipyNlpOptimizationModel:
         """
         Добавление ограничения на равенство цен внутри группы
         """
-<<<<<<< HEAD
         n_con = sum(len(plu_idx) for plu_idx in self.plu_idx_in_line.values()) - len(self.plu_idx_in_line)
 
         if len(self.plu_idx_in_line) == 0:
-=======
-        plu_idx_in_line = (
-            self.data
-                .groupby(['plu_line'])
-                .agg(n_plu=('plu', 'count'), plu_idx=('plu_idx', lambda x: list(x)))
-                .query('n_plu>1')
-        )
-        n_con = sum(plu_idx_in_line['n_plu']) - len(plu_idx_in_line)
-        plu_idx_in_line = plu_idx_in_line.to_dict()['plu_idx']
-
-        if len(plu_idx_in_line) == 0:
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
             return
 
         A = np.zeros((n_con, self.N))
         i_con = 0
-<<<<<<< HEAD
         for plu_line, plu_idxes in self.plu_idx_in_line.items():
             for plu_idx1, plu_idx2 in zip(plu_idxes[:-1], plu_idxes[1:]):
                 A[i_con, plu_idx1] = 1.
                 A[i_con, plu_idx2] = -1.
                 i_con += 1
         constr = LinearConstraint(A, 0.0, 0.0)
-=======
-        for plu_line, plu_idxs in plu_idx_in_line.items():
-            for plu_idx1, plu_idx2 in zip(plu_idxs[:-1], plu_idxs[1:]):
-                A[i_con, plu_idx1] = 1.
-                A[i_con, plu_idx2] = -1.
-                i_con += 1
-        constr = LinearConstraint(A, -0.0, 0.0)
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         self.constraints.append(constr)
 
     def add_con_chg(self, chg_max=None):
@@ -173,12 +147,8 @@ class PyomoNlpOptimizationModel:
         if (alpha < 0.0) | (alpha > 1.0):
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
-<<<<<<< HEAD
         self.data = data['data_nlp'].copy()
         self.plu_idx_in_line = data['plu_idx_in_line'].copy()
-=======
-        self.data = data.copy()
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         self.N = len(self.data['plu'])
         self.plu = self.data['plu'].to_list()
         self.P = self.data['P'].to_list()
@@ -252,40 +222,15 @@ class PyomoNlpOptimizationModel:
         """
         Добавление ограничения на равенство цен внутри линейки
         """
-<<<<<<< HEAD
-
         if len(self.plu_idx_in_line) == 0:
-=======
-        plu_idx_in_line = (
-            self.data
-                .groupby(['plu_line'])
-                .agg(n_plu=('plu', 'count'), plu_idx=('plu_idx', lambda x: list(x)))
-                .query('n_plu>1')
-                .drop(columns=['n_plu'])
-                .to_dict()
-            ['plu_idx']
-        )
-
-        if len(plu_idx_in_line) == 0:
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
             return
 
         self.model.con_equal = pyo.Constraint(pyo.Any)
         # название ограничения = plu_line
-<<<<<<< HEAD
         for con_idx, idxes in self.plu_idx_in_line.items():
             for i in range(1, len(idxes)):
                 con_name = str(con_idx) + '_' + str(i)
                 self.model.con_equal[con_name] = (self.model.x[idxes[i]] - self.model.x[idxes[i - 1]]) == 0
-=======
-        for con_idx, idxs in plu_idx_in_line.items():
-            for idx in range(1, len(idxs)):
-                con_name = str(con_idx) + '_' + str(idx)
-                self.model.con_equal[con_name] = (
-                    self.model.x[idxs[idx]] * self.P[idxs[idx]] -
-                    self.model.x[idxs[idx - 1]] * self.P[idxs[idx - 1]]
-                ) == 0
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
 
     def add_con_chg(self, chg_max=None):
         """
@@ -356,11 +301,7 @@ class PyomoLpOptimizationModel:
         if (alpha < 0.0) | (alpha > 1.0):
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
-<<<<<<< HEAD
         self.data = data['data_lp'].copy()
-=======
-        self.data = data.copy()
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         self.N = len(self.data['plu_line'])
         self.grid_size = self.data['grid_size'].to_list()
         self.g_max = max(self.grid_size)
@@ -402,10 +343,6 @@ class PyomoLpOptimizationModel:
         """
         Инициализация целевой функции(выручка или фронт-маржа)
         """
-<<<<<<< HEAD
-
-=======
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         def objective(model):
             return sum(
                 (self.Ps[i][j] * model.x[i, j] - self.alpha * self.C[i]) * self.Qs[i][j]
@@ -419,10 +356,6 @@ class PyomoLpOptimizationModel:
         """
         Добавление в модель ограничения на РТО
         """
-<<<<<<< HEAD
-
-=======
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         def con_rev(model):
             r = sum(
                 self.Ps[i][j] * model.x[i, j] * self.Qs[i][j]
@@ -437,10 +370,6 @@ class PyomoLpOptimizationModel:
         """
         Добавление в модель ограничения на маржу
         """
-<<<<<<< HEAD
-
-=======
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         def con_mrg(model):
             r = sum(
                 model.x[i, j] * (self.Ps[i][j] - self.C[i]) * self.Qs[i][j]
@@ -493,19 +422,11 @@ class CvxpyLpOptimizationModel:
     """
     Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
     """
-<<<<<<< HEAD
-
-=======
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
     def __init__(self, data: pd.DataFrame, alpha: int):
         if (alpha < 0.0) | (alpha > 1.0):
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
-<<<<<<< HEAD
         self.data = data['data_lp'].copy()
-=======
-        self.data = data.copy()
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
         self.N = len(self.data['plu_line'])
         self.grid_size = self.data['grid_size'].values
         self.g_max = max(self.grid_size)

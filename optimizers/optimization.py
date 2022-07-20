@@ -1,5 +1,4 @@
 from time import time
-<<<<<<< HEAD
 from functools import wraps
 
 
@@ -10,17 +9,6 @@ def timeit(function):
         result = function(*args, **kwargs)
         duration = time() - t0
         return result, duration
-
-=======
-
-
-def timeit(function):
-    def wrapper(*args, **kwargs):
-        t0 = time()
-        result = function(*args, **kwargs)
-        duration = time()-t0
-        return result, duration
->>>>>>> 47c36c1ea8b89c38aaed0330bb95058c9460d4fb
     return wrapper
 
 
