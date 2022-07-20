@@ -6,17 +6,14 @@ def price_round(prices):
     """
     Округление до ближайшего числа вида XXX.99
     """
-    frac_part, int_part = np.modf(prices)
-    prices_rounded = np.where(frac_part <= 0.5, int_part - 0.01, int_part + 0.99)
+    prices_rounded = np.round(prices + 0.01) - 0.01
     return prices_rounded
 
 
-def generate_data(N_plu, seed=0):
+def generate_base_data(N_plu, seed=0):
     """
     Генерация данных для тестирования оптимизационной модели
     """
-    np.random.seed(seed)
-
     np.random.seed(seed)
     plu_cnt_in_line = np.random.poisson(0.29, N_plu) + 1
     plu_cnt_in_line = plu_cnt_in_line[np.cumsum(plu_cnt_in_line) <= N_plu]
@@ -46,7 +43,7 @@ def generate_data(N_plu, seed=0):
 
 def construct_bounds(df, bounds_params):
     """
-    (1) Базовое ограничение измения цен в +- main_bounds от текущей
+    (1) Базовое ограничение изменения цен в +- main_bounds от текущей
     (2) Цена должна попадать в диапазон +- market_bounds от цены конкурента/рыночной цены
     Если диапазоны не накладываются то приоритет у (1)
     """
@@ -73,7 +70,7 @@ def construct_bounds(df, bounds_params):
 
 def construct_lp_grid(df, bounds_params, grid_max_size=21):
     """
-    Формируем сетку значений для задачи ЛП
+    Формирует сетку значений для задачи ЛП
     """
     df = df.copy().reset_index(drop=True)
 
@@ -140,3 +137,31 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
     ).reset_index()
 
     return df
+
+
+def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
+    """
+    Генерация модельных данных для NLP и LP задачи
+    :param N_plu: количество генерируемых товаров
+    :param bounds_params: параметры для границ поиска цены
+    :param grid_max_size: максимальный размер сетки для поиска цены в задаче LP
+    :param seed:
+    :return: словарь с полями, содержащие данные для NLP('data_nlp'), LP('data_lp') и
+    составом линеек с более чем 1 товаром('plu_idx_in_line') в виде словаря
+    """
+    data_base = generate_base_data(N_plu, seed)
+    data_nlp = construct_bounds(data_base, bounds_params)
+    data_lp = construct_lp_grid(data_base, bounds_params, grid_max_size)
+    plu_idx_in_line = (
+        data_base
+        .groupby(['plu_line'])
+        .agg(n_plu=('plu', 'count'), plu_idx=('plu_idx', lambda x: list(x)))
+        .query('n_plu > 1')
+        .drop(columns=['n_plu'])
+        .to_dict()
+        ['plu_idx']
+    )
+
+    return {
+        'data_nlp': data_nlp, 'data_lp': data_lp, 'plu_idx_in_line': plu_idx_in_line
+    }

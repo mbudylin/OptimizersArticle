@@ -1,12 +1,15 @@
 from time import time
+from functools import wraps
 
 
 def timeit(function):
+    @wraps(function)
     def wrapper(*args, **kwargs):
         t0 = time()
         result = function(*args, **kwargs)
-        duration = time()-t0
+        duration = time() - t0
         return result, duration
+
     return wrapper
 
 
