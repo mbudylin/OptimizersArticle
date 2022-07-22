@@ -1,3 +1,5 @@
+/venv
+/cvxopt.egg-info
 .idea
 .ipynb_checkpoints
 .DS_Store
