@@ -55,7 +55,6 @@ class ScipyNlpOptimizationModel:
         """
         Инициализация целевой функции(выручка или фронт-маржа)
         """
-
         def objective(x):
             f = -sum(
                 (self.P * x - self.alpha * self.C) * self.Q * self._el(self.E, x)
