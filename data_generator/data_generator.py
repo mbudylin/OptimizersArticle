@@ -64,7 +64,8 @@ def construct_bounds(df, bounds_params):
 
     df['x_init'] = 0.5 * (df['x_lower'] + df['x_upper'])
     df['fixed'] = 0
-    df['x_cur'] = 1.0
+    # df['x_cur'] = 1.0
+    df.drop(columns=['x_bnd_lower', 'x_bnd_upper'], inplace=True)
 
     return df
 
@@ -129,12 +130,9 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
 
     # собираем все необходимые данные по линейкам
     df = df.groupby(['plu_line']).agg(
-        P=('P', 'min'), Q=('Q', 'sum'), C=('C', 'mean'),
         Ps=('Ps', 'mean'), Qs=('Qs', 'sum'), xs=('xs', 'mean'),
-        PC=('PC', 'min'), grid_size=('grid_size', 'min'),
-        fixed=('fixed', 'min'),
-        P_idx=('P_idx', 'min'), n_plu=('plu', 'count'),
-        x_lower=('x_lower', 'mean'), x_upper=('x_upper', 'mean')
+        grid_size=('grid_size', 'min'),
+        P_idx=('P_idx', 'min'), n_plu=('plu', 'count')
     ).reset_index()
 
     return df
