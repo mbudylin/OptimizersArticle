@@ -27,7 +27,6 @@ class ScipyNlpOptimizationModel:
         self.x_lower = self.data['x_lower'].values
         self.x_upper = self.data['x_upper'].values
         self.x_init = self.data['x_init'].values
-        self.fixed = self.data['fixed'].values
         # Задаём объект для модели scipy
         self.obj = None
         self.jac = None

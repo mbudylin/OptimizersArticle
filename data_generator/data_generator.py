@@ -156,7 +156,6 @@ def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
         data_base
         .groupby(['plu_line_idx'])
         .agg(n_plu=('plu_idx', 'count'), plu_idx=('plu_idx', lambda x: list(x)))
-        .query('n_plu > 1')
         .drop(columns=['n_plu'])
         .to_dict()
         ['plu_idx']
