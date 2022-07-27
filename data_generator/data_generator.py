@@ -162,6 +162,6 @@ def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
     )
 
     return {
-        'data_nlp': data_nlp, 'data_lp': data_lp, 'plu_idx_in_line': plu_idx_in_line
+        'data_nlp': data_nlp, 'data_milp': data_lp, 'plu_idx_in_line': plu_idx_in_line
     }
 

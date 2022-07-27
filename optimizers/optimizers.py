@@ -300,7 +300,7 @@ class PyomoLpOptimizationModel:
         if (alpha < 0.0) | (alpha > 1.0):
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
-        self.data = data['data_lp'].copy()
+        self.data = data['data_milp'].copy()
         self.N = len(self.data['plu_line'])
         self.grid_size = self.data['grid_size'].to_list()
         self.g_max = max(self.grid_size)
@@ -425,7 +425,7 @@ class CvxpyLpOptimizationModel:
         if (alpha < 0.0) | (alpha > 1.0):
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
-        self.data = data['data_lp'].copy()
+        self.data = data['data_milp'].copy()
         self.N = len(self.data['plu_line'])
         self.grid_size = self.data['grid_size'].values
         self.g_max = max(self.grid_size)
