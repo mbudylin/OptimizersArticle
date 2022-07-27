@@ -16,15 +16,14 @@ class ScipyNlpOptimizationModel:
         self.alpha = float(alpha)
         self.data = data['data_nlp'].copy()
         self.plu_idx_in_line = data['plu_idx_in_line'].copy()
-        self.N = len(self.data['plu'])
-        self.plu = self.data['plu'].values
+        self.N = len(self.data['plu_idx'])
+        self.plu = self.data['plu_idx'].values
         self.P = self.data['P'].values
         self.Q = self.data['Q'].values
         self.E = self.data['E'].values
         self.PC = self.data['PC'].values
         self.C = self.data['C'].values
         # границы для индексов
-        self.x_cur = self.data['x_cur'].values
         self.x_lower = self.data['x_lower'].values
         self.x_upper = self.data['x_upper'].values
         self.x_init = self.data['x_init'].values
@@ -148,8 +147,8 @@ class PyomoNlpOptimizationModel:
         self.alpha = float(alpha)
         self.data = data['data_nlp'].copy()
         self.plu_idx_in_line = data['plu_idx_in_line'].copy()
-        self.N = len(self.data['plu'])
-        self.plu = self.data['plu'].to_list()
+        self.N = len(self.data['plu_idx'])
+        self.plu = self.data['plu_idx'].to_list()
         self.P = self.data['P'].to_list()
         self.Q = self.data['Q'].to_list()
         self.E = self.data['E'].to_list()
@@ -301,20 +300,20 @@ class PyomoLpOptimizationModel:
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
         self.data = data['data_milp'].copy()
-        self.N = len(self.data['plu_line'])
-        self.grid_size = self.data['grid_size'].to_list()
+        self.N = len(self.data['plu_line_idx'])
+        self.grid_size = self.data['grid_size'].values
         self.g_max = max(self.grid_size)
-        self.plu_line = self.data['plu_line'].to_list()
-        self.n_plu = self.data['n_plu'].to_list()
-        self.P = self.data['P'].to_list()
-        self.P_idx = self.data['P_idx'].to_list()
-        self.PC = self.data['PC'].to_list()
-        self.Ps = self.data['Ps'].to_list()
-        self.Qs = self.data['Qs'].to_list()
-        self.C = self.data['C'].to_list()
+        self.plu_line_idx = self.data['plu_line_idx'].values
+        self.n_plu = self.data['n_plu'].values
+        self.P = self.data['P'].values
+        self.P_idx = self.data['P_idx'].values
+        self.PC = self.data['PC'].values
+        self.Ps = np.vstack(self.data['Ps'].values)
+        self.Qs = np.vstack(self.data['Qs'].values)
+        self.C = self.data['C'].values
         # границы для индексов
-        self.xs = self.data['xs'].to_list()
-        self.fixed = self.data['fixed'].to_list()
+        self.xs = self.data['xs'].values
+        self.fixed = self.data['fixed'].values
         # Задаём объект модели pyomo
         self.model = pyo.ConcreteModel()
 
@@ -342,14 +341,8 @@ class PyomoLpOptimizationModel:
         """
         Инициализация целевой функции(выручка или фронт-маржа)
         """
-        def objective(model):
-            return sum(
-                (self.Ps[i][j] * model.x[i, j] - self.alpha * self.C[i]) * self.Qs[i][j]
-                for i in range(self.N)
-                for j in range(self.grid_size[i])
-            )
-
-        self.model.obj = pyo.Objective(rule=objective, sense=pyo.maximize)
+        expr = sum(sum((self.Ps - self.alpha * self.C.reshape(-1, 1)) * self.Qs * self.model.x))
+        self.model.obj = pyo.Objective(expr=expr, sense=pyo.maximize)
 
     def add_con_rev(self, s_min, s_max=None):
         """
@@ -377,7 +370,8 @@ class PyomoLpOptimizationModel:
             )
             return m_min, r, m_max
 
-        self.model.con_mrg = pyo.Constraint(rule=con_mrg)
+        expr = sum(sum((self.Ps - self.C.reshape(-1, 1)) * self.Qs * self.model.x)) >= m_min
+        self.model.con_mrg = pyo.Constraint(expr=expr)
 
     def add_con_equal(self):
         pass
@@ -394,7 +388,7 @@ class PyomoLpOptimizationModel:
         """
         Метод, запускающий решение поставленной оптимизационной задачи
         """
-        solver = pyo.SolverFactory(solver)
+        solver = pyo.SolverFactory(solver, io_format='python', symbolic_solver_labels=False)
         for option_name, option_value in options.items():
             solver.options[option_name] = option_value
         result = solver.solve(self.model)
@@ -426,10 +420,10 @@ class CvxpyLpOptimizationModel:
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
         self.data = data['data_milp'].copy()
-        self.N = len(self.data['plu_line'])
+        self.N = len(self.data['plu_line_idx'])
         self.grid_size = self.data['grid_size'].values
         self.g_max = max(self.grid_size)
-        self.plu_line = self.data['plu_line'].values
+        self.plu_line_idx = self.data['plu_line_idx'].values
         self.n_plu = self.data['n_plu'].values
         self.P = self.data['P'].values
         self.P_idx = self.data['P_idx'].values

@@ -22,7 +22,7 @@ def generate_base_data(N_plu, seed=0):
     N_plu_line = len(plu_cnt_in_line)
     plu_line = list(range(N_plu_line))
 
-    data = pd.DataFrame({'plu_line': plu_line})
+    data = pd.DataFrame({'plu_line_idx': plu_line})
     data['plu_cnt'] = plu_cnt_in_line
     data['P'] = price_round((np.random.gamma(2., 3., N_plu_line) + 4.) * 10.)
     P_mean = data['P'].mean()
@@ -36,7 +36,6 @@ def generate_base_data(N_plu, seed=0):
     data['E_rc'] = abs(np.random.normal(1., 0.4, N_plu))
     data['E'] = np.where(data['plu_cnt'] > 1.0, data['E'] * data['E_rc'], data['E'])
     data.drop(columns=['plu_cnt', 'E_rc'], inplace=True)
-    data['plu'] = list(range(N_plu))
     data['plu_idx'] = list(range(N_plu))
 
     return data
@@ -129,11 +128,11 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
         df[col] = df[col].apply(pad_col)
 
     # собираем все необходимые данные по линейкам
-    df = df.groupby(['plu_line']).agg(
+    df = df.groupby(['plu_line_idx']).agg(
         P=('P', 'mean'), PC=('PC', 'mean'), C=('C', 'mean'),
         Ps=('Ps', 'mean'), Qs=('Qs', 'sum'), xs=('xs', 'mean'),
         grid_size=('grid_size', 'min'),
-        P_idx=('P_idx', 'min'), n_plu=('plu', 'count'),
+        P_idx=('P_idx', 'min'), n_plu=('plu_idx', 'count'),
         fixed=('fixed', 'min')
     ).reset_index()
 
@@ -155,8 +154,8 @@ def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
     data_lp = construct_lp_grid(data_base, bounds_params, grid_max_size)
     plu_idx_in_line = (
         data_base
-        .groupby(['plu_line'])
-        .agg(n_plu=('plu', 'count'), plu_idx=('plu_idx', lambda x: list(x)))
+        .groupby(['plu_line_idx'])
+        .agg(n_plu=('plu_idx', 'count'), plu_idx=('plu_idx', lambda x: list(x)))
         .query('n_plu > 1')
         .drop(columns=['n_plu'])
         .to_dict()
