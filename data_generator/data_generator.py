@@ -130,9 +130,11 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
 
     # собираем все необходимые данные по линейкам
     df = df.groupby(['plu_line']).agg(
+        P=('P', 'mean'), PC=('PC', 'mean'), C=('C', 'mean'),
         Ps=('Ps', 'mean'), Qs=('Qs', 'sum'), xs=('xs', 'mean'),
         grid_size=('grid_size', 'min'),
-        P_idx=('P_idx', 'min'), n_plu=('plu', 'count')
+        P_idx=('P_idx', 'min'), n_plu=('plu', 'count'),
+        fixed=('fixed', 'min')
     ).reset_index()
 
     return df

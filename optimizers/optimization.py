@@ -42,5 +42,5 @@ def pricing_optimization(data, opt_model, opt_params, solver, solver_option={}):
         model.add_con_chg_cnt(opt_params['con_chg_cnt'])
 
     result = model.solve(solver=solver, options=solver_option)
-
+    result['model'] = model
     return result

@@ -36,7 +36,7 @@ LP_MAX_GRID_SIZE = 21
 def get_files(file_path):
     files = []
     if os.path.exists(file_path):
-        files = [f for f in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, f))]
+        files = [f for f in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, f)) and f.endswith('.csv')]
     return files
 
 
