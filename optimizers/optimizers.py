@@ -15,9 +15,11 @@ class ScipyNlpOptimizationModel:
             raise ValueError('alpha должен быть между 0 и 1')
         self.alpha = float(alpha)
         self.data = data['data_nlp'].copy()
-        self.plu_idx_in_line = data['plu_idx_in_line'].copy()
         self.N = len(self.data['plu_idx'])
-        self.plu = self.data['plu_idx'].values
+        self.plu_idx_in_line = data['plu_idx_in_line'].copy()
+        self.plu_idx = self.data['plu_idx'].values
+        self.plu_line_idx = self.data['plu_line_idx'].values
+        self.plu_mask = None
         self.P = self.data['P'].values
         self.Q = self.data['Q'].values
         self.E = self.data['E'].values
@@ -27,6 +29,7 @@ class ScipyNlpOptimizationModel:
         self.x_lower = self.data['x_lower'].values
         self.x_upper = self.data['x_upper'].values
         self.x_init = self.data['x_init'].values
+        self.idx_map = None
         # Задаём объект для модели scipy
         self.obj = None
         self.jac = None
@@ -43,10 +46,19 @@ class ScipyNlpOptimizationModel:
         """
         Инициализация переменных в модели
         """
-        self.bounds = list(zip(self.x_lower, self.x_upper))
-        self.x0 = 0.5 * (self.x_lower + self.x_upper)
+
+        self.idx_map = self.plu_line_idx
+        self.N = len(np.unique(self.idx_map))
+
+        self.bounds = np.array([[None] * self.N] * 2, dtype=float)
+        for plu_line_idx_, plu_ in self.plu_idx_in_line.items():
+            self.bounds[0][plu_line_idx_] = self.x_lower[plu_[0]]
+            self.bounds[1][plu_line_idx_] = self.x_upper[plu_[0]]
+
+        # self.bounds = np.array([self.x_lower, self.x_upper])
+        self.x0 = 0.5 * (self.bounds[0] + self.bounds[1])
         A = np.eye(self.N, self.N)
-        constr_bounds = LinearConstraint(A, self.x_lower, self.x_upper)
+        constr_bounds = LinearConstraint(A, self.bounds[0], self.bounds[1])
         self.constraints.append(constr_bounds)
 
     def init_objective(self):
@@ -54,34 +66,21 @@ class ScipyNlpOptimizationModel:
         Инициализация целевой функции(выручка или фронт-маржа)
         """
         def objective(x):
+            x_ = x[self.idx_map[self.plu_idx]]
             f = -sum(
-                (self.P * x - self.alpha * self.C) * self.Q * self._el(self.E, x)
+                (self.P * x_ - self.alpha * self.C) * self.Q * self._el(self.E, x_)
             )
             return f / self.k
-
         self.obj = objective
-
-    def add_con_rev(self, s_min, s_max=np.inf):
-        """
-        Добавление в модель ограничения на выручку
-        """
-
-        def con_rev(x):
-            s = sum(self.P * x * self.Q * self._el(self.E, x))
-            return s
-
-        constr = NonlinearConstraint(con_rev, s_min, s_max)
-        self.constraints.append(constr)
 
     def add_con_mrg(self, m_min, m_max=np.inf):
         """
         Добавление в модель ограничения на маржу
         """
-
         def con_mrg(x):
-            m = sum((self.P * x - self.C) * self.Q * self._el(self.E, x))
+            x_ = x[self.idx_map[self.plu_idx]]
+            m = sum((self.P * x_ - self.C) * self.Q * self._el(self.E, x_))
             return m
-
         constr = NonlinearConstraint(con_mrg, m_min, m_max)
         self.constraints.append(constr)
 
@@ -104,28 +103,15 @@ class ScipyNlpOptimizationModel:
         constr = LinearConstraint(A, 0.0, 0.0)
         self.constraints.append(constr)
 
-    def add_con_chg(self, chg_max=None):
-        """
-        Добавление в модель ограничения на 'разброс' цен
-        """
-        chg_max2 = chg_max ** 2
-
-        def con_chg(x):
-            r = sum((x - 1.0) ** 2) / self.N
-            return r
-
-        constr = NonlinearConstraint(con_chg, -np.inf, chg_max2)
-        self.constraints.append(constr)
-
     def solve(self, solver='slsqp', options={}):
         """
         Метод, запускающий решение поставленной оптимизационной задачи
         """
         result = minimize(self.obj, self.x0, method=solver,
                           constraints=self.constraints, options=options)
-        self.data['x_opt'] = result['x']
-        self.data['P_opt'] = result['x'] * self.data['P']
-        self.data['Q_opt'] = self.Q * self._el(self.E, result['x'])
+        self.data['x_opt'] = result['x'][self.idx_map[self.plu_idx]]
+        self.data['P_opt'] = self.data['x_opt'] * self.data['P']
+        self.data['Q_opt'] = self.Q * self._el(self.E, self.data['x_opt'])
 
         return {
             'message': str(result['message']),
