@@ -79,11 +79,18 @@ def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
             print(f'slsqp finish \t{t}')
 
         if N < 500:
+            res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'cobyla')
+            statuses.append('ok' if res['status'] == '1' else res['status'])
+            times.append(t)
+            solvers.append('cobyla')
+            print(f'cobyla finish \t{t}')
+
+        if N < 500:
             res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'trust-constr')
             statuses.append('ok' if res['status'] == '1' else res['status'])
             times.append(t)
             solvers.append('trust-constr')
-            print(f'trust finish \t{t}')
+            print(f'trust-constr finish \t{t}')
 
         res, t = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])

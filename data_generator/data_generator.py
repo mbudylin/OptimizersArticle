@@ -10,17 +10,15 @@ def price_round(prices):
     return prices_rounded
 
 
-def generate_base_data(N_plu, seed=0):
+def generate_base_data(N_plu_line, seed=0):
     """
     Генерация данных для тестирования оптимизационной модели
     """
     np.random.seed(seed)
 
-    plu_cnt_in_line = np.random.poisson(0.29, N_plu) + 1
-    plu_cnt_in_line = plu_cnt_in_line[np.cumsum(plu_cnt_in_line) <= N_plu]
-    plu_cnt_in_line[-1] = N_plu - plu_cnt_in_line.sum() + plu_cnt_in_line[-1]
-    N_plu_line = len(plu_cnt_in_line)
     plu_line = list(range(N_plu_line))
+    plu_cnt_in_line = np.random.poisson(0.29, N_plu_line) + 1
+    N_plu = sum(plu_cnt_in_line)
 
     data = pd.DataFrame({'plu_line_idx': plu_line})
     data['plu_cnt'] = plu_cnt_in_line
@@ -62,7 +60,6 @@ def construct_bounds(df, bounds_params):
     df.loc[ix, 'x_upper'] = df.loc[ix, 'x_bnd_upper']
 
     df['x_init'] = 0.5 * (df['x_lower'] + df['x_upper'])
-    df['fixed'] = 0
     # df['x_cur'] = 1.0
     df.drop(columns=['x_bnd_lower', 'x_bnd_upper'], inplace=True)
 
@@ -132,24 +129,23 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
         P=('P', 'mean'), PC=('PC', 'mean'), C=('C', 'mean'),
         Ps=('Ps', 'mean'), Qs=('Qs', 'sum'), xs=('xs', 'mean'),
         grid_size=('grid_size', 'min'),
-        P_idx=('P_idx', 'min'), n_plu=('plu_idx', 'count'),
-        fixed=('fixed', 'min')
+        P_idx=('P_idx', 'min'), n_plu=('plu_idx', 'count')
     ).reset_index()
 
     return df
 
 
-def generate_data(N_plu, bounds_params, grid_max_size, seed=0):
+def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0):
     """
     Генерация модельных данных для NLP и LP задачи
-    :param N_plu: количество генерируемых товаров
+    :param N_plu_line: количество генерируемых линеек товаров
     :param bounds_params: параметры для границ поиска цены
     :param grid_max_size: максимальный размер сетки для поиска цены в задаче LP
     :param seed:
     :return: словарь с полями, содержащие данные для NLP('data_nlp'), LP('data_lp') и
     составом линеек с более чем 1 товаром('plu_idx_in_line') в виде словаря
     """
-    data_base = generate_base_data(N_plu, seed)
+    data_base = generate_base_data(N_plu_line, seed)
     data_nlp = construct_bounds(data_base, bounds_params)
     data_lp = construct_lp_grid(data_base, bounds_params, grid_max_size)
     plu_idx_in_line = (
