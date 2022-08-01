@@ -1,3 +1,4 @@
+import abc
 import numpy as np
 import pandas as pd
 from scipy.optimize import NonlinearConstraint, LinearConstraint, minimize
@@ -5,12 +6,48 @@ import cvxpy as cp
 import pyomo.environ as pyo
 
 
-class ScipyNlpOptimizationModel:
+class OptimizationModel(abc.ABC):
+
+    def __init__(self, data, alpha):
+        self.alpha = alpha
+        self.data = data
+
+    @abc.abstractmethod
+    def init_variables(self):
+        """
+        Инициализация переменных в модели
+        """
+        pass
+
+    @abc.abstractmethod
+    def init_objective(self):
+        """
+        Инициализация целевой функции - выручка
+        """
+        pass
+
+    @abc.abstractmethod
+    def add_con_mrg(self, m_min):
+        """
+        Добавление в модель ограничения на маржу
+        """
+        pass
+
+    @abc.abstractmethod
+    def solve(self):
+        """
+        Метод, запускающий решение поставленной оптимизационной задачи
+        """
+        pass
+
+
+class ScipyNlpOptimizationModel(OptimizationModel):
     """
     Класс, который создаёт оптимизационную модель на базе библиотеки scipy
     """
 
     def __init__(self, data: pd.DataFrame, alpha):
+        super().__init__(data, alpha)
         if (alpha != 0) & (alpha != 1):
             assert 'alpha должна быть 0 или 1'
         self.alpha = alpha
@@ -93,12 +130,13 @@ class ScipyNlpOptimizationModel:
         }
 
 
-class PyomoNlpOptimizationModel:
+class PyomoNlpOptimizationModel(OptimizationModel):
     """
     Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
     """
 
-    def __init__(self, data: pd.DataFrame, alpha: int):
+    def __init__(self, data: pd.DataFrame, alpha):
+        super().__init__(data, alpha)
         if (alpha != 0) & (alpha != 1):
             assert 'alpha должна быть 0 или 1'
         self.alpha = alpha
@@ -202,12 +240,14 @@ class PyomoNlpOptimizationModel:
         }
 
 
-class PyomoLpOptimizationModel:
+class PyomoLpOptimizationModel(OptimizationModel):
     """
     Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
     """
 
-    def __init__(self, data: pd.DataFrame, alpha: int):
+    def __init__(self, data: pd.DataFrame, alpha):
+        super().__init__(data, alpha)
+
         if (alpha != 0) & (alpha != 1):
             assert 'alpha должна быть 0 или 1'
         self.alpha = alpha
@@ -291,11 +331,12 @@ class PyomoLpOptimizationModel:
         }
 
 
-class CvxpyLpOptimizationModel:
+class CvxpyLpOptimizationModel(OptimizationModel):
     """
     Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
     """
     def __init__(self, data: pd.DataFrame, alpha):
+        super().__init__(data, alpha)
         if (alpha != 0) & (alpha != 1):
             assert 'alpha должна быть 0 или 1'
         self.alpha = alpha
