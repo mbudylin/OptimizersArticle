@@ -71,7 +71,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.x0 = None
         self.constraints = []
         # нормировка для целевой функции
-        self.k = 0.01 * sum(self.P * self.Q)
+        self.k = 0.1 * sum(self.P * self.Q)
 
     def _el(self, E, x):
         return np.exp(E * (x - 1.0))
