@@ -1,7 +1,6 @@
 __pycache__/
 /venv
 /cvxopt.egg-info
-/data/stat/**
 .idea
 .ipynb_checkpoints
 .DS_Store
