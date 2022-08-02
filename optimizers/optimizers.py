@@ -46,7 +46,7 @@ class OptimizationModel(abc.ABC):
 
 class ScipyNlpOptimizationModel(OptimizationModel):
     """
-    Класс, который создаёт оптимизационную модель на базе библиотеки scipy
+    Класс, который создаёт NLP оптимизационную модель на базе библиотеки scipy
     """
 
     def __init__(self, data: pd.DataFrame, alpha):
@@ -80,9 +80,6 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         return np.exp(E * (x - 1.0))
 
     def init_variables(self):
-        """
-        Инициализация переменных в модели
-        """
         self.bounds = np.array([[None] * self.N] * 2, dtype=float)
         for plu_line_idx_, plu_ in self.plu_idx_in_line.items():
             self.bounds[0][plu_line_idx_] = self.x_lower[plu_[0]]
@@ -94,9 +91,6 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.constraints.append(constr_bounds)
 
     def init_objective(self):
-        """
-        Инициализация целевой функции - выручка
-        """
         def objective(x):
             x_ = x[self.plu_line_idx[self.plu_idx]]
             f = -sum((self.P * x_ - self.alpha * self.C) * self.Q * self._el(self.E, x_))
@@ -105,9 +99,6 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.obj = objective
 
     def add_con_mrg(self, m_min):
-        """
-        Добавление в модель ограничения на маржу
-        """
         def con_mrg(x):
             x_ = x[self.plu_line_idx[self.plu_idx]]
             m = sum((self.P * x_ - self.C) * self.Q * self._el(self.E, x_))
@@ -116,9 +107,6 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.constraints.append(constr)
 
     def solve(self, solver='slsqp', options={}):
-        """
-        Метод, запускающий решение поставленной оптимизационной задачи
-        """
         result = minimize(self.obj, self.x0, method=solver,
                           constraints=self.constraints, options=options)
         self.data['x_opt'] = result['x'][self.plu_line_idx[self.plu_idx]]
@@ -134,9 +122,6 @@ class ScipyNlpOptimizationModel(OptimizationModel):
 
 
 class PyomoNlpOptimizationModel(OptimizationModel):
-    """
-    Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
-    """
 
     def __init__(self, data: pd.DataFrame, alpha):
         super().__init__(data, alpha)
@@ -183,25 +168,16 @@ class PyomoNlpOptimizationModel(OptimizationModel):
                 self.model.con_equal[con_name] = (self.model.x[idxes[i]] - self.model.x[idxes[i - 1]]) == 0
 
     def init_objective(self):
-        """
-        Инициализация целевой функции(выручка или фронт-маржа)
-        """
         objective = sum((self.P[i] * self.model.x[i] - self.alpha * self.C[i]) * self.Q[i] * self._el(i)
                         for i in range(self.N))
         self.model.obj = pyo.Objective(expr=objective, sense=pyo.maximize)
 
     def add_con_mrg(self, m_min):
-        """
-        Добавление в модель ограничения на маржу
-        """
         con_mrg_expr = sum((self.P[i] * self.model.x[i] - self.C[i]) * self.Q[i] * self._el(i)
                            for i in range(self.N)) >= m_min
         self.model.con_mrg = pyo.Constraint(rule=con_mrg_expr)
 
     def add_con_chg_cnt(self, nmax=10000, thr_l=0.98, thr_u=1.02, ):
-        """
-        Добавление в модель ограничения на изменение цен
-        """
         self.model.ind_l = pyo.Var(range(self.N), domain=pyo.Binary, initialize=0)
         self.model.ind_r = pyo.Var(range(self.N), domain=pyo.Binary, initialize=0)
         self.model.ind_m = pyo.Var(range(self.N), domain=pyo.Binary, initialize=1)
@@ -222,9 +198,6 @@ class PyomoNlpOptimizationModel(OptimizationModel):
         ) >= self.N - nmax)
 
     def solve(self, solver='ipopt', options={}):
-        """
-        Метод, запускающий решение поставленной оптимизационной задачи
-        """
         solver = pyo.SolverFactory(solver, tee=False)
         for option_name, option_value in options.items():
             solver.options[option_name] = option_value
@@ -244,9 +217,6 @@ class PyomoNlpOptimizationModel(OptimizationModel):
 
 
 class PyomoLpOptimizationModel(OptimizationModel):
-    """
-    Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
-    """
 
     def __init__(self, data: pd.DataFrame, alpha):
         super().__init__(data, alpha)
@@ -272,9 +242,6 @@ class PyomoLpOptimizationModel(OptimizationModel):
         self.model = pyo.ConcreteModel()
 
     def init_variables(self):
-        """
-        Инициализация переменных в модели
-        """
         # задаем бинарную метку для цены
         def init_fun(model, i, j):
             return 1 if self.P_idx[i] == j else 0
@@ -286,31 +253,19 @@ class PyomoLpOptimizationModel(OptimizationModel):
             self.model.con_any_price[i] = sum(self.model.x[i, j] for j in range(self.grid_size[i])) == 1
 
     def init_objective(self):
-        """
-        Инициализация целевой функции(выручка или фронт-маржа)
-        """
         objective = sum(sum((self.Ps - self.alpha * self.C.reshape(-1, 1)) * self.Qs * self.model.x))
         self.model.obj = pyo.Objective(expr=objective, sense=pyo.maximize)
 
     def add_con_mrg(self, m_min, m_max=None):
-        """
-        Добавление в модель ограничения на маржу
-        """
         con_mrg_expr = sum(sum((self.Ps - self.C.reshape(-1, 1)) * self.Qs * self.model.x)) >= m_min
         self.model.con_mrg = pyo.Constraint(expr=con_mrg_expr)
 
     def add_con_chg_cnt(self, nmax=10000):
-        """
-        Добавление ограничения на количество изменяемых цен
-        """
         con_expr = sum(self.model.x[i, self.P_idx[i]] * self.n_plu[i]
                        for i in range(self.N) if self.P_idx[i] > 0) >= sum(self.n_plu) - nmax
         self.model.con_chg_cnt = pyo.Constraint(expr=con_expr)
 
     def solve(self, solver='cbc', options={}):
-        """
-        Метод, запускающий решение поставленной оптимизационной задачи
-        """
         solver = pyo.SolverFactory(solver, io_format='python', symbolic_solver_labels=False)
         for option_name, option_value in options.items():
             solver.options[option_name] = option_value
@@ -335,9 +290,7 @@ class PyomoLpOptimizationModel(OptimizationModel):
 
 
 class CvxpyLpOptimizationModel(OptimizationModel):
-    """
-    Класс, который создаёт оптимизационную модель на базе библиотеки pyomo
-    """
+
     def __init__(self, data: pd.DataFrame, alpha):
         super().__init__(data, alpha)
         if (alpha != 0) & (alpha != 1):
@@ -364,9 +317,6 @@ class CvxpyLpOptimizationModel(OptimizationModel):
         self.x_mask = None
 
     def init_variables(self):
-        """
-        Инициализация переменных в модели
-        """
         self.x = cp.Variable(shape=(self.N, self.g_max), boolean=True)
         # должна быть хотя бы одна цена из диапазона
         # вспомогательная маска для упрощения матричных операций при формирований задачи
@@ -378,31 +328,19 @@ class CvxpyLpOptimizationModel(OptimizationModel):
         self.constraints.append(con_any_price)
 
     def init_objective(self):
-        """
-        Инициализация целевой функции(выручка или фронт-маржа)
-        """
         self.obj = cp.Maximize(cp.sum(cp.multiply(self.x, (self.Ps - self.alpha * self.C) * self.Qs)))
 
     def add_con_mrg(self, m_min):
-        """
-        Добавление в модель ограничения на маржу
-        """
         con_mrg = cp.sum(cp.multiply(self.x, (self.Ps - self.C) * self.Qs)) >= m_min
         self.constraints.append(con_mrg)
 
     def add_con_chg_cnt(self, nmax=10000):
-        """
-        Добавление ограничения на количество изменяемых цен
-        """
         con_chg_cnt = cp.sum(
             cp.multiply(self.x[np.arange(self.N), self.P_idx], self.n_plu)[self.P_idx > 0]
         ) >= sum(self.n_plu) - nmax
         self.constraints.append(con_chg_cnt)
 
     def solve(self, solver='ECOS_BB', options={}):
-        """
-        Метод, запускающий решение поставленной оптимизационной задачи
-        """
         problem = cp.Problem(self.obj, self.constraints)
         problem.solve(solver, **options)
 

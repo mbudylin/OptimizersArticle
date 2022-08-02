@@ -64,75 +64,85 @@ def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
         opt_params = {
             'alpha': 0.0,
             'con_mrg': M_cur,
-            'con_equal': True
         }
 
         statuses = []
         times = []
         solvers = []
+        opt_types = []
 
         if N < 1000:
             res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'slsqp')
             statuses.append('ok' if res['status'] == '0' else res['status'])
             times.append(t)
-            solvers.append('slsqp')
+            solvers.append('scipy.slsqp')
+            opt_types.append('NLP')
             print(f'slsqp finish \t{t}')
 
         if N < 500:
             res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'cobyla')
             statuses.append('ok' if res['status'] == '1' else res['status'])
             times.append(t)
-            solvers.append('cobyla')
+            solvers.append('scipy.cobyla')
+            opt_types.append('NLP')
             print(f'cobyla finish \t{t}')
 
         if N < 500:
             res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'trust-constr')
             statuses.append('ok' if res['status'] == '1' else res['status'])
             times.append(t)
-            solvers.append('trust-constr')
+            solvers.append('scipy.trust-constr')
+            opt_types.append('NLP')
             print(f'trust-constr finish \t{t}')
 
         res, t = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])
         times.append(t)
-        solvers.append('ipopt')
+        solvers.append('pyomo.ipopt')
+        opt_types.append('NLP')
         print(f'ipopt finish \t{t}')
 
         res, t = pricing_optimization(data, PyomoLpOptimizationModel, opt_params, 'cbc')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])
         times.append(t)
-        solvers.append('pyomo_cbc')
+        solvers.append('pyomo.cbc')
+        opt_types.append('MILP')
         print(f'pyomo cbc finish \t{t}')
 
         res, t = pricing_optimization(data, PyomoLpOptimizationModel, opt_params, 'glpk')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])
         times.append(t)
-        solvers.append('pyomo_glpk')
+        solvers.append('pyomo.glpk')
+        opt_types.append('MILP')
         print(f'pyomo glpk finish \t{t}')
 
         res, t = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'CBC')
         statuses.append('ok' if res['status'] == 'optimal' else res['status'])
         times.append(t)
-        solvers.append('cvxpy_cbc')
+        solvers.append('cvxpy.cbc')
+        opt_types.append('MILP')
         print(f'cvxpy cbc finish \t{t}')
 
         res, t = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'GLPK_MI')
         statuses.append('ok' if res['status'] == 'optimal' else res['status'])
         times.append(t)
-        solvers.append('cvxpy_glpk')
+        solvers.append('cvxpy.glpk')
+        opt_types.append('MILP')
         print(f'cvxpy glpk finish \t{t}')
 
         if N < 2000:
             res, t = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'ECOS_BB')
             statuses.append('ok' if res['status'] == 'optimal' else res['status'])
             times.append(t)
-            solvers.append('ecos')
+            solvers.append('cvxpy.ecos')
+            opt_types.append('MILP')
             print(f'ecos finish \t{t}')
 
         df = pd.DataFrame({
             'N': N,
             'seed': seed,
             'solver': solvers,
+            'opt_type': opt_types,
             't': times,
             'status': statuses
         })

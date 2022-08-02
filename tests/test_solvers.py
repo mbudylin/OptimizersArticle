@@ -8,6 +8,7 @@ from optimizers.optimizers import (
     CvxpyLpOptimizationModel,
 )
 
+
 def calc_metrics(df, tp='cur'):
     sfx = ''
     if tp == 'cur':
@@ -18,10 +19,12 @@ def calc_metrics(df, tp='cur'):
     M_ = sum((df['P' + sfx] - df['C']) * df['Q' + sfx])
     return R_, M_
 
+
 def perc_delta(v_old, v_new, ndigits=2):
     p = round(100. * (v_new / v_old - 1.), ndigits)
     sign = '+' if p >= 0 else '-'
     return sign + str(abs(p)) + '%'
+
 
 bounds_params = {
     'main_bounds': {
@@ -42,8 +45,11 @@ opt_params = {
     'con_mrg': M_cur,
 }
 
+
 def test_solving():
-    "Тест расчёта на небольших данных"
+    """
+    Тест расчёта на небольших данных
+    """
 
     res_nlp, _ = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
     res_milp, _ = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'GLPK_MI')
