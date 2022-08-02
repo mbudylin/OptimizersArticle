@@ -19,12 +19,12 @@ def pricing_optimization(data, opt_model, opt_params, solver, solver_option={}):
     :param data: входные данные для оптимизации
     :param opt_model: класс модели оптимизатора
     :param opt_params: параметры оптимизации
-    :param solver: солвер для оптиимзации
+    :param solver: солвер для оптимизации
     :param solver_option: параметры солвера
     :return: словарь, возвращаемый моделью оптимизации
     """
-    alpha = opt_params['alpha']
-    model = opt_model(data, alpha)
+
+    model = opt_model(data, opt_params['alpha'])
 
     model.init_variables()
     model.init_objective()
