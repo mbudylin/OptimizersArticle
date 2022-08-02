@@ -1,10 +1,9 @@
+__pycache__/
 /venv
 /cvxopt.egg-info
+/data/stat/**
 .idea
 .ipynb_checkpoints
 .DS_Store
-__pycache__/
-.html
-/data
 .html
 **.hdf
