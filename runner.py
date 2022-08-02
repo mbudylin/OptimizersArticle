@@ -158,5 +158,5 @@ def optimizers_collect_stat(file_path_stat):
 
 if __name__ == '__main__':
 
-    optimizers_calc_stat(GRID, STAT_PATH, overwrite=True)
+    optimizers_calc_stat(GRID, STAT_PATH, overwrite=False)
     stat_df = optimizers_collect_stat(STAT_PATH)
