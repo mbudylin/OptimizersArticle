@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 N,seed,solver,t,status,opt_type
 50,23,scipy.slsqp,0.043820858001708984,ok,nlp
 50,23,scipy.cobyla,0.45708584785461426,2,nlp
@@ -8,3 +9,15 @@ N,seed,solver,t,status,opt_type
 50,23,cvxpy.cbc,0.04462695121765137,ok,lp
 50,23,cvxpy.glpk,0.018439054489135742,ok,lp
 50,23,cvxpy.ecos,0.0378870964050293,ok,lp
+=======
+N,seed,solver,opt_type,t,status
+50,23,scipy.slsqp,NLP,0.09198689460754395,ok
+50,23,scipy.cobyla,NLP,0.4732387065887451,2
+50,23,scipy.trust-constr,NLP,4.385090112686157,2
+50,23,pyomo.ipopt,NLP,0.06000471115112305,ok
+50,23,pyomo.cbc,MILP,0.24258995056152344,ok
+50,23,pyomo.glpk,MILP,0.06812882423400879,ok
+50,23,cvxpy.cbc,MILP,0.07243490219116211,ok
+50,23,cvxpy.glpk,MILP,0.019390106201171875,ok
+50,23,cvxpy.ecos,MILP,0.03462338447570801,ok
+>>>>>>> 5eafb3354545eea9716c415d655d8fad1adf098d
