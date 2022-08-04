@@ -1,7 +1,7 @@
-N,seed,solver,t,status,opt_type
-1000,23,pyomo.ipopt,0.5276427268981934,ok,nlp
-1000,23,pyomo.cbc,3.5276248455047607,ok,lp
-1000,23,pyomo.glpk,1.4276371002197266,ok,lp
-1000,23,cvxpy.cbc,2.282525062561035,ok,lp
-1000,23,cvxpy.glpk,2.102299928665161,ok,lp
-1000,23,cvxpy.ecos,1.4168548583984375,ok,lp
+N,seed,solver,opt_type,t,status
+1000,23,pyomo.ipopt,NLP,0.4705328941345215,ok
+1000,23,pyomo.cbc,MILP,3.008765935897827,ok
+1000,23,pyomo.glpk,MILP,1.283168077468872,ok
+1000,23,cvxpy.cbc,MILP,1.9773228168487549,ok
+1000,23,cvxpy.glpk,MILP,2.1916720867156982,ok
+1000,23,cvxpy.ecos,MILP,1.350276231765747,ok

@@ -184,12 +184,12 @@ class PyomoNlpOptimizationModel(OptimizationModel):
 
         self.model.x_interval = pyo.Constraint(pyo.Any)
         self.model.con_ind = pyo.Constraint(pyo.Any)
-
+        K = 0.15
         for i in range(self.N):
-            self.model.x_interval['l' + str(i)] = self.model.x[i] - 10. * (1 - self.model.ind_l[i]) <= thr_l
-            self.model.x_interval['r' + str(i)] = self.model.x[i] + 10. * (1 - self.model.ind_r[i]) >= thr_u
-            self.model.x_interval['ml' + str(i)] = self.model.x[i] - 10. * (1 - self.model.ind_m[i]) <= 1.
-            self.model.x_interval['mr' + str(i)] = self.model.x[i] + 10. * (1 - self.model.ind_m[i]) >= 1.
+            self.model.x_interval['l' + str(i)] = self.model.x[i] - K * (1 - self.model.ind_l[i]) <= thr_l
+            self.model.x_interval['r' + str(i)] = self.model.x[i] + K * (1 - self.model.ind_r[i]) >= thr_u
+            self.model.x_interval['ml' + str(i)] = self.model.x[i] - K * (1 - self.model.ind_m[i]) <= 1.
+            self.model.x_interval['mr' + str(i)] = self.model.x[i] + K * (1 - self.model.ind_m[i]) >= 1.
             self.model.con_ind[i] = (self.model.ind_l[i] + self.model.ind_m[i] + self.model.ind_r[i]) == 1
 
         self.model.con_max_chg = pyo.Constraint(expr=sum(

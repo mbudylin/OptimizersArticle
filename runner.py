@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 from itertools import product
 import pandas as pd
+import argparse
 
 sys.path.append('./OptimizersArticle')
 
@@ -77,7 +79,7 @@ def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
             times.append(t)
             solvers.append('scipy.slsqp')
             opt_types.append('NLP')
-            print(f'slsqp finish \t{t}')
+            print(f"slsqp finish \t{t}")
 
         if N < 500:
             res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'cobyla')
@@ -157,6 +159,11 @@ def optimizers_collect_stat(file_path_stat):
 
 
 if __name__ == '__main__':
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument("-ow", "--overwrite", required=False, default=False, action='store_true',
+                             help='Перезапись файлов со статистикой отработки оптимизаторов')
 
-    optimizers_calc_stat(GRID, STAT_PATH, overwrite=False)
+    args = vars(args_parser.parse_args())
+
+    optimizers_calc_stat(GRID, STAT_PATH, overwrite=args['overwrite'])
     stat_df = optimizers_collect_stat(STAT_PATH)

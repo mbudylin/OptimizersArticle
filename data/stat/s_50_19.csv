@@ -1,23 +1,10 @@
-<<<<<<< HEAD
-N,seed,solver,t,status,opt_type
-50,19,scipy.slsqp,0.049651145935058594,ok,nlp
-50,19,scipy.cobyla,0.4168100357055664,ok,nlp
-50,19,scipy.trust-constr,4.690841197967529,ok,nlp
-50,19,pyomo.ipopt,0.06716609001159668,ok,nlp
-50,19,pyomo.cbc,0.23875784873962402,ok,lp
-50,19,pyomo.glpk,0.08673691749572754,ok,lp
-50,19,cvxpy.cbc,0.049019813537597656,ok,lp
-50,19,cvxpy.glpk,0.034459829330444336,ok,lp
-50,19,cvxpy.ecos,13.60708999633789,optimal_inaccurate,lp
-=======
 N,seed,solver,opt_type,t,status
-50,19,scipy.slsqp,NLP,0.06051802635192871,ok
-50,19,scipy.cobyla,NLP,0.3873460292816162,ok
-50,19,scipy.trust-constr,NLP,7.258983850479126,ok
-50,19,pyomo.ipopt,NLP,0.11821889877319336,ok
-50,19,pyomo.cbc,MILP,0.45194482803344727,ok
-50,19,pyomo.glpk,MILP,0.0878441333770752,ok
-50,19,cvxpy.cbc,MILP,0.11906218528747559,ok
-50,19,cvxpy.glpk,MILP,0.046060800552368164,ok
-50,19,cvxpy.ecos,MILP,13.274164915084839,optimal_inaccurate
->>>>>>> 5eafb3354545eea9716c415d655d8fad1adf098d
+50,19,scipy.slsqp,NLP,0.06429100036621094,ok
+50,19,scipy.cobyla,NLP,0.45330095291137695,ok
+50,19,scipy.trust-constr,NLP,3.032749891281128,ok
+50,19,pyomo.ipopt,NLP,0.06454920768737793,ok
+50,19,pyomo.cbc,MILP,0.21753382682800293,ok
+50,19,pyomo.glpk,MILP,0.08800315856933594,ok
+50,19,cvxpy.cbc,MILP,0.054728031158447266,ok
+50,19,cvxpy.glpk,MILP,0.04294705390930176,ok
+50,19,cvxpy.ecos,MILP,13.389409065246582,optimal_inaccurate
