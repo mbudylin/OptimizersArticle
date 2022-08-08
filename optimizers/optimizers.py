@@ -12,8 +12,8 @@ import pyomo.environ as pyo
 class OptimizationModel(abc.ABC):
 
     def __init__(self, data, alpha):
-        self.alpha = alpha
         self.data = data
+        self.alpha = alpha
 
     @abc.abstractmethod
     def init_variables(self):

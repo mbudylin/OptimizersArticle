@@ -49,9 +49,6 @@ def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
     for N, seed in grid:
         file_name = 's_' + str(N) + '_' + str(seed) + '.csv'
 
-        # print(dump_key)
-        # print(existed_stat)
-        # assert ()
         if not overwrite:
             if file_name in existed_files:
                 continue

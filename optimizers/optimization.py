@@ -1,5 +1,9 @@
+from typing import Dict
 from time import time
 from functools import wraps
+import pandas as pd
+
+from optimizers.optimizers import OptimizationModel
 
 
 def timeit(function):
@@ -13,7 +17,11 @@ def timeit(function):
 
 
 @timeit
-def pricing_optimization(data, opt_model, opt_params, solver, solver_option={}):
+def pricing_optimization(data: pd.DataFrame,
+                         opt_model: OptimizationModel,
+                         opt_params: Dict,
+                         solver: str,
+                         solver_option={}):
     """
     Запуск расчета оптимальных цен с помощью указанного класса оптимизатора и параметров
     :param data: входные данные для оптимизации
