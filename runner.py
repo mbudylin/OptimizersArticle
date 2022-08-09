@@ -21,8 +21,6 @@ STAT_PATH = './data/stat'
 
 SEED_GRID = list(range(25))
 N_GRID = [10, 20, 50, 100, 200, 500, 1000]
-# SEED_GRID = list(range(5))
-# N_GRID = [10, 20]
 GRID = product(N_GRID, SEED_GRID)
 BOUNDS_PARAMS = {
     'main_bounds': {
@@ -61,8 +59,7 @@ def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
         R_cur = sum(data['data_nlp']['Q'] * data['data_nlp']['P'])
 
         opt_params = {
-            'alpha': 0.0,
-            'con_mrg': M_cur,
+            'add_con_mrg': M_cur,
         }
 
         statuses = []
@@ -71,71 +68,71 @@ def optimizers_calc_stat(grid, file_path_stat, overwrite=False):
         opt_types = []
 
         if N < 1000:
-            res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'slsqp')
+            res = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'slsqp')
             statuses.append('ok' if res['status'] == '0' else res['status'])
-            times.append(t)
+            times.append(res['t'])
             solvers.append('scipy.slsqp')
             opt_types.append('NLP')
-            print(f"slsqp finish \t{t}")
+            print(f"slsqp finish \t{res['t']}")
 
         if N < 500:
-            res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'cobyla')
+            res = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'cobyla')
             statuses.append('ok' if res['status'] == '1' else res['status'])
-            times.append(t)
+            times.append(res['t'])
             solvers.append('scipy.cobyla')
             opt_types.append('NLP')
-            print(f'cobyla finish \t{t}')
+            print(f"cobyla finish \t{res['t']}")
 
         if N < 500:
-            res, t = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'trust-constr')
+            res = pricing_optimization(data, ScipyNlpOptimizationModel, opt_params, 'trust-constr')
             statuses.append('ok' if res['status'] == '1' else res['status'])
-            times.append(t)
+            times.append(res['t'])
             solvers.append('scipy.trust-constr')
             opt_types.append('NLP')
-            print(f'trust-constr finish \t{t}')
+            print(f"trust-constr finish \t{res['t']}")
 
-        res, t = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
+        res = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])
-        times.append(t)
+        times.append(res['t'])
         solvers.append('pyomo.ipopt')
         opt_types.append('NLP')
-        print(f'ipopt finish \t{t}')
+        print(f"ipopt finish \t{res['t']}")
 
-        res, t = pricing_optimization(data, PyomoLpOptimizationModel, opt_params, 'cbc')
+        res = pricing_optimization(data, PyomoLpOptimizationModel, opt_params, 'cbc')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])
-        times.append(t)
+        times.append(res['t'])
         solvers.append('pyomo.cbc')
         opt_types.append('MILP')
-        print(f'pyomo cbc finish \t{t}')
+        print(f"pyomo cbc finish \t{res['t']}")
 
-        res, t = pricing_optimization(data, PyomoLpOptimizationModel, opt_params, 'glpk')
+        res = pricing_optimization(data, PyomoLpOptimizationModel, opt_params, 'glpk')
         statuses.append('ok' if res['status'] == 'ok' else res['status'])
-        times.append(t)
+        times.append(res['t'])
         solvers.append('pyomo.glpk')
         opt_types.append('MILP')
-        print(f'pyomo glpk finish \t{t}')
+        print(f"pyomo glpk finish \t{res['t']}")
 
-        res, t = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'CBC')
+        res = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'CBC')
         statuses.append('ok' if res['status'] == 'optimal' else res['status'])
-        times.append(t)
+        times.append(res['t'])
         solvers.append('cvxpy.cbc')
         opt_types.append('MILP')
-        print(f'cvxpy cbc finish \t{t}')
+        print(f"cvxpy cbc finish \t{res['t']}")
 
-        res, t = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'GLPK_MI')
+        res = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'GLPK_MI')
         statuses.append('ok' if res['status'] == 'optimal' else res['status'])
-        times.append(t)
+        times.append(res['t'])
         solvers.append('cvxpy.glpk')
         opt_types.append('MILP')
-        print(f'cvxpy glpk finish \t{t}')
+        print(f"cvxpy glpk finish \t{res['t']}")
 
         if N < 2000:
-            res, t = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'ECOS_BB')
+            res = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'ECOS_BB')
             statuses.append('ok' if res['status'] == 'optimal' else res['status'])
-            times.append(t)
+            times.append(res['t'])
             solvers.append('cvxpy.ecos')
             opt_types.append('MILP')
-            print(f'ecos finish \t{t}')
+            print(f"ecos finish \t{res['t']}")
 
         df = pd.DataFrame({
             'N': N,

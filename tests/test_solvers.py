@@ -41,7 +41,6 @@ data = generate_data(50, bounds_params, grid_size, 0)
 R_cur, M_cur = calc_metrics(data['data_nlp'], 'cur')
 # параметры для оптимизации
 opt_params = {
-    'alpha': 0.0,
     'con_mrg': M_cur,
 }
 

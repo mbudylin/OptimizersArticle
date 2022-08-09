@@ -1,3 +1,4 @@
+from typing import Dict
 import numpy as np
 import pandas as pd
 
@@ -135,7 +136,7 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
     return df
 
 
-def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0):
+def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0) -> Dict:
     """
     Генерация модельных данных для NLP и LP задачи
     :param N_plu_line: количество генерируемых линеек товаров
@@ -158,5 +159,7 @@ def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0):
     )
 
     return {
-        'data_nlp': data_nlp, 'data_milp': data_lp, 'plu_idx_in_line': plu_idx_in_line
+        'data_nlp': data_nlp,
+        'data_milp': data_lp,
+        'plu_idx_in_line': plu_idx_in_line,
     }

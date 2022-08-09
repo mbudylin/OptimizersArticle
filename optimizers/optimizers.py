@@ -1,9 +1,9 @@
 """
 Классы оптимизаторов.
 """
+from typing import Dict
 import abc
 import numpy as np
-import pandas as pd
 from scipy.optimize import NonlinearConstraint, LinearConstraint, minimize
 import cvxpy as cp
 import pyomo.environ as pyo
@@ -11,9 +11,27 @@ import pyomo.environ as pyo
 
 class OptimizationModel(abc.ABC):
 
-    def __init__(self, data, alpha):
-        self.data = data
-        self.alpha = alpha
+    def __init__(self, data_sources, table_link):
+
+        self.data_sources = data_sources
+        self.data = data_sources[table_link].copy()
+        self.plu_idx_in_line = data_sources['plu_idx_in_line'].copy()
+
+        if 'plu_idx' in self.data.columns:
+            self.plu_idx = self.data['plu_idx'].values
+
+        self.N = self.data['plu_line_idx'].nunique()
+        self.plu_line_idx = self.data['plu_line_idx'].values
+        self.P = self.data['P'].values
+
+        if 'Q' in self.data.columns:
+            self.Q = self.data['Q'].values
+
+        if 'E' in self.data.columns:
+            self.E = self.data['E'].values
+
+        self.PC = self.data['PC'].values
+        self.C = self.data['C'].values
 
     @abc.abstractmethod
     def init_variables(self):
@@ -36,8 +54,18 @@ class OptimizationModel(abc.ABC):
         """
         pass
 
+    def add_constraints(self, opt_params: Dict):
+        """
+        Добавление ограничений, если они заданы.
+        Название метода должно начинаться с 'add_con', например: 'add_con_mrg'
+        """
+
+        for val, func_ in self.__dict__.items():
+            if 'add_con' in val:
+                func_(opt_params[val])
+
     @abc.abstractmethod
-    def solve(self):
+    def solve(self) -> Dict:
         """
         Метод, запускающий решение поставленной оптимизационной задачи
         """
@@ -49,25 +77,14 @@ class ScipyNlpOptimizationModel(OptimizationModel):
     Класс, который создаёт NLP оптимизационную модель на базе библиотеки scipy
     """
 
-    def __init__(self, data: pd.DataFrame, alpha):
-        super().__init__(data, alpha)
-        if (alpha != 0) & (alpha != 1):
-            assert 'alpha должна быть 0 или 1'
-        self.alpha = alpha
-        self.data = data['data_nlp'].copy()
-        self.plu_idx_in_line = data['plu_idx_in_line'].copy()
-        self.plu_idx = self.data['plu_idx'].values
-        self.plu_line_idx = self.data['plu_line_idx'].values
-        self.N = len(np.unique(self.plu_line_idx))
-        self.P = self.data['P'].values
-        self.Q = self.data['Q'].values
-        self.E = self.data['E'].values
-        self.PC = self.data['PC'].values
-        self.C = self.data['C'].values
+    def __init__(self, data):
+        super().__init__(data, 'data_nlp')
+
         # границы для индексов
         self.x_lower = self.data['x_lower'].values
         self.x_upper = self.data['x_upper'].values
         self.x_init = self.data['x_init'].values
+
         # Задаём объект для модели scipy
         self.obj = None
         self.bounds = None
@@ -81,9 +98,11 @@ class ScipyNlpOptimizationModel(OptimizationModel):
 
     def init_variables(self):
         self.bounds = np.array([[None] * self.N] * 2, dtype=float)
+
         for plu_line_idx_, plu_ in self.plu_idx_in_line.items():
             self.bounds[0][plu_line_idx_] = self.x_lower[plu_[0]]
             self.bounds[1][plu_line_idx_] = self.x_upper[plu_[0]]
+
         self.x0 = 0.5 * (self.bounds[0] + self.bounds[1])
         # self.x0 = np.random.uniform(self.bounds[0], self.bounds[1])
         A = np.eye(self.N, self.N)
@@ -93,7 +112,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
     def init_objective(self):
         def objective(x):
             x_ = x[self.plu_line_idx[self.plu_idx]]
-            f = -sum((self.P * x_ - self.alpha * self.C) * self.Q * self._el(self.E, x_))
+            f = -sum(self.P * x_ * self.Q * self._el(self.E, x_))
             return f / self.k
 
         self.obj = objective
@@ -107,8 +126,13 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.constraints.append(constr)
 
     def solve(self, solver='slsqp', options={}):
-        result = minimize(self.obj, self.x0, method=solver,
-                          constraints=self.constraints, options=options)
+
+        result = minimize(self.obj,
+                          self.x0,
+                          method=solver,
+                          constraints=self.constraints,
+                          options=options)
+
         self.data['x_opt'] = result['x'][self.plu_line_idx[self.plu_idx]]
         self.data['P_opt'] = self.data['x_opt'] * self.data['P']
         self.data['Q_opt'] = self.Q * self._el(self.E, self.data['x_opt'])
@@ -123,24 +147,16 @@ class ScipyNlpOptimizationModel(OptimizationModel):
 
 class PyomoNlpOptimizationModel(OptimizationModel):
 
-    def __init__(self, data: pd.DataFrame, alpha):
-        super().__init__(data, alpha)
-        if (alpha != 0) & (alpha != 1):
-            assert 'alpha должна быть 0 или 1'
-        self.alpha = alpha
-        self.data = data['data_nlp'].copy()
-        self.plu_idx_in_line = data['plu_idx_in_line'].copy()
+    def __init__(self, data):
+        super().__init__(data, 'data_nlp')
+
         self.N = len(self.data['plu_idx'])
-        self.plu = self.data['plu_idx'].to_list()
-        self.P = self.data['P'].to_list()
-        self.Q = self.data['Q'].to_list()
-        self.E = self.data['E'].to_list()
-        self.PC = self.data['PC'].to_list()
-        self.C = self.data['C'].to_list()
+
         # границы для индексов
-        self.x_lower = self.data['x_lower'].to_list()
-        self.x_upper = self.data['x_upper'].to_list()
-        self.x_init = self.data['x_init'].to_list()
+        self.x_lower = self.data['x_lower'].values
+        self.x_upper = self.data['x_upper'].values
+        self.x_init = self.data['x_init'].values
+
         # Задаём объект модели pyomo
         self.model = pyo.ConcreteModel()
 
@@ -156,11 +172,13 @@ class PyomoNlpOptimizationModel(OptimizationModel):
             return self.x_init[i]
 
         self.model.x = pyo.Var(range(self.N), domain=pyo.Reals, bounds=bounds_fun, initialize=init_fun)
+
         # добавление условие на равенство цен в линейке
         if len(self.plu_idx_in_line) == 0:
             return
 
         self.model.con_equal = pyo.Constraint(pyo.Any)
+
         # название ограничения = plu_line_idx
         for con_idx, idxes in self.plu_idx_in_line.items():
             for i in range(1, len(idxes)):
@@ -168,8 +186,7 @@ class PyomoNlpOptimizationModel(OptimizationModel):
                 self.model.con_equal[con_name] = (self.model.x[idxes[i]] - self.model.x[idxes[i - 1]]) == 0
 
     def init_objective(self):
-        objective = sum((self.P[i] * self.model.x[i] - self.alpha * self.C[i]) * self.Q[i] * self._el(i)
-                        for i in range(self.N))
+        objective = sum(self.P[i] * self.model.x[i] * self.Q[i] * self._el(i) for i in range(self.N))
         self.model.obj = pyo.Objective(expr=objective, sense=pyo.maximize)
 
     def add_con_mrg(self, m_min):
@@ -218,24 +235,18 @@ class PyomoNlpOptimizationModel(OptimizationModel):
 
 class PyomoLpOptimizationModel(OptimizationModel):
 
-    def __init__(self, data: pd.DataFrame, alpha):
-        super().__init__(data, alpha)
+    def __init__(self, data):
+        super().__init__(data, 'data_milp')
 
-        if (alpha != 0) & (alpha != 1):
-            assert 'alpha должна быть 0 или 1'
-        self.alpha = alpha
-        self.data = data['data_milp'].copy()
         self.N = len(self.data['plu_line_idx'])
         self.grid_size = self.data['grid_size'].values
         self.g_max = max(self.grid_size)
         self.plu_line_idx = self.data['plu_line_idx'].values
         self.n_plu = self.data['n_plu'].values
-        self.P = self.data['P'].values
         self.P_idx = self.data['P_idx'].values
-        self.PC = self.data['PC'].values
         self.Ps = np.vstack(self.data['Ps'].values)
         self.Qs = np.vstack(self.data['Qs'].values)
-        self.C = self.data['C'].values
+
         # границы для индексов
         self.xs = self.data['xs'].values
         # Задаём объект модели pyomo
@@ -253,7 +264,7 @@ class PyomoLpOptimizationModel(OptimizationModel):
             self.model.con_any_price[i] = sum(self.model.x[i, j] for j in range(self.grid_size[i])) == 1
 
     def init_objective(self):
-        objective = sum(sum((self.Ps - self.alpha * self.C.reshape(-1, 1)) * self.Qs * self.model.x))
+        objective = sum(sum(self.Ps * self.Qs * self.model.x))
         self.model.obj = pyo.Objective(expr=objective, sense=pyo.maximize)
 
     def add_con_mrg(self, m_min, m_max=None):
@@ -291,20 +302,13 @@ class PyomoLpOptimizationModel(OptimizationModel):
 
 class CvxpyLpOptimizationModel(OptimizationModel):
 
-    def __init__(self, data: pd.DataFrame, alpha):
-        super().__init__(data, alpha)
-        if (alpha != 0) & (alpha != 1):
-            assert 'alpha должна быть 0 или 1'
-        self.alpha = alpha
-        self.data = data['data_milp'].copy()
-        self.N = len(self.data['plu_line_idx'])
+    def __init__(self, data):
+        super().__init__(data, 'data_milp')
         self.grid_size = self.data['grid_size'].values
         self.g_max = max(self.grid_size)
         self.plu_line_idx = self.data['plu_line_idx'].values
         self.n_plu = self.data['n_plu'].values
-        self.P = self.data['P'].values
         self.P_idx = self.data['P_idx'].values
-        self.PC = self.data['PC'].values
         self.Ps = np.array(self.data['Ps'].to_list())
         self.Qs = np.array(self.data['Qs'].to_list())
         self.C = self.data['C'].values.reshape(-1, 1)
@@ -328,7 +332,7 @@ class CvxpyLpOptimizationModel(OptimizationModel):
         self.constraints.append(con_any_price)
 
     def init_objective(self):
-        self.obj = cp.Maximize(cp.sum(cp.multiply(self.x, (self.Ps - self.alpha * self.C) * self.Qs)))
+        self.obj = cp.Maximize(cp.sum(cp.multiply(self.x, self.Ps * self.Qs)))
 
     def add_con_mrg(self, m_min):
         con_mrg = cp.sum(cp.multiply(self.x, (self.Ps - self.C) * self.Qs)) >= m_min
