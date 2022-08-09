@@ -21,6 +21,7 @@ class OptimizationModel(abc.ABC):
             self.plu_idx = self.data['plu_idx'].values
 
         self.N = self.data['plu_line_idx'].nunique()
+        self.N_SIZE = len(self.data['plu_line_idx'])
         self.plu_line_idx = self.data['plu_line_idx'].values
         self.P = self.data['P'].values
 
