@@ -9,10 +9,10 @@
 Установить солверы и requirements (python 3.8)
 
 1) cbc: https://ampl.com/products/solvers/open-source/
-    прокинуть в .bash_profile путь в бинарнику.
+    прокинуть в .bash_profile путь к бинарнику.
 
 2) ipopt: https://ampl.com/products/solvers/open-source/
-    прокинуть в .bash_profile путь в бинарнику.
+    прокинуть в .bash_profile путь к бинарнику.
 
 3) cvxopt отсюда https://cvxopt.org/install/
 

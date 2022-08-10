@@ -34,6 +34,15 @@ class OptimizationModel(abc.ABC):
         self.PC = self.data['PC'].values
         self.C = self.data['C'].values
 
+        # границы для индексов
+        if 'x_lower' in self.data.columns:
+            self.x_lower = self.data['x_lower'].values
+        if 'x_upper' in self.data.columns:
+            self.x_upper = self.data['x_upper'].values
+        if 'x_init' in self.data.columns:
+            self.x_init = self.data['x_init'].values
+
+
     @abc.abstractmethod
     def init_variables(self):
         """
@@ -66,7 +75,7 @@ class OptimizationModel(abc.ABC):
                 func_(opt_params[val])
 
     @abc.abstractmethod
-    def solve(self) -> Dict:
+    def solve(self, solver, options) -> Dict:
         """
         Метод, запускающий решение поставленной оптимизационной задачи
         """
@@ -80,11 +89,6 @@ class ScipyNlpOptimizationModel(OptimizationModel):
 
     def __init__(self, data):
         super().__init__(data, 'data_nlp')
-
-        # границы для индексов
-        self.x_lower = self.data['x_lower'].values
-        self.x_upper = self.data['x_upper'].values
-        self.x_init = self.data['x_init'].values
 
         # Задаём объект для модели scipy
         self.obj = None
@@ -153,11 +157,6 @@ class PyomoNlpOptimizationModel(OptimizationModel):
 
         self.N = len(self.data['plu_idx'])
 
-        # границы для индексов
-        self.x_lower = self.data['x_lower'].values
-        self.x_upper = self.data['x_upper'].values
-        self.x_init = self.data['x_init'].values
-
         # Задаём объект модели pyomo
         self.model = pyo.ConcreteModel()
 
@@ -174,7 +173,7 @@ class PyomoNlpOptimizationModel(OptimizationModel):
 
         self.model.x = pyo.Var(range(self.N), domain=pyo.Reals, bounds=bounds_fun, initialize=init_fun)
 
-        # добавление условие на равенство цен в линейке
+        # добавление условия на равенство цен в линейке
         if len(self.plu_idx_in_line) == 0:
             return
 
