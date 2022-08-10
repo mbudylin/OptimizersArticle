@@ -17,7 +17,14 @@ from optimizers.optimizers import (
 )
 from optimizers.optimization import pricing_optimization
 
-STAT_PATH = './data/stat'
+import os
+
+IS_DOCKER = os.environ.get('AM_I_IN_A_DOCKER_CONTAINER', False)
+if IS_DOCKER:
+    STAT_PATH = './data/docker/stat'
+else:
+    STAT_PATH = './data/stat'
+
 
 SEED_GRID = list(range(25))
 N_GRID = [10, 20, 50, 100, 200, 500, 1000]
