@@ -50,8 +50,8 @@ def test_solving():
     Тест расчёта на небольших данных
     """
 
-    res_nlp, _ = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
-    res_milp, _ = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'GLPK_MI')
+    res_nlp = pricing_optimization(data, PyomoNlpOptimizationModel, opt_params, 'ipopt')
+    res_milp = pricing_optimization(data, CvxpyLpOptimizationModel, opt_params, 'GLPK_MI')
 
     R_opt_nlp, M_opt_nlp = calc_metrics(res_nlp['data'], 'opt')
     R_opt_milp, M_opt_milp = calc_metrics(res_milp['data'], 'opt')
