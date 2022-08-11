@@ -1,3 +1,4 @@
+from typing import Dict
 import numpy as np
 import pandas as pd
 
@@ -8,6 +9,33 @@ def price_round(prices):
     """
     prices_rounded = np.round(prices + 0.01) - 0.01
     return prices_rounded
+
+
+def generate_simple_data(N, seed=0):
+    """
+    Генерация данных для тестирования оптимизационной модели
+    """
+    np.random.seed(seed)
+
+    data = pd.DataFrame({'plu': range(1, N + 1)})
+    data['P'] = price_round((np.random.gamma(2., 3., N) + 4.) * 10.)
+    P_mean = data['P'].mean()
+    data['Q'] = np.random.chisquare(5., N) * np.exp(-data['P'] / P_mean)
+    data['E'] = -np.random.gamma(1.7, 0.9, N)
+
+    data['PC'] = price_round(
+        data['P'] * np.random.normal(1.0, 0.2 * np.exp(-data['P'] / P_mean))
+    )
+    data['C'] = round(data['P'] / np.random.normal(1.28, 0.2, N), 2)
+
+    data['x_lower'] = 0.85 * data['PC'] / data['P']
+    data['x_upper'] = 1.15 * data['PC'] / data['P']
+
+    data['x_init'] = 0.5 * (data['x_lower'] + data['x_upper'])
+
+    data.drop('PC', axis=1, inplace=True)
+
+    return data
 
 
 def generate_base_data(N_plu_line, seed=0):
@@ -135,7 +163,7 @@ def construct_lp_grid(df, bounds_params, grid_max_size=21):
     return df
 
 
-def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0):
+def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0) -> Dict:
     """
     Генерация модельных данных для NLP и LP задачи
     :param N_plu_line: количество генерируемых линеек товаров
@@ -158,5 +186,7 @@ def generate_data(N_plu_line, bounds_params, grid_max_size, seed=0):
     )
 
     return {
-        'data_nlp': data_nlp, 'data_milp': data_lp, 'plu_idx_in_line': plu_idx_in_line
+        'data_nlp': data_nlp,
+        'data_milp': data_lp,
+        'plu_idx_in_line': plu_idx_in_line,
     }
