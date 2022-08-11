@@ -42,7 +42,6 @@ class OptimizationModel(abc.ABC):
         if 'x_init' in self.data.columns:
             self.x_init = self.data['x_init'].values
 
-
     @abc.abstractmethod
     def init_variables(self):
         """
@@ -67,12 +66,16 @@ class OptimizationModel(abc.ABC):
     def add_constraints(self, opt_params: Dict):
         """
         Добавление ограничений, если они заданы.
-        Название метода должно начинаться с 'add_con', например: 'add_con_mrg'
+        Название метода должно начинаться с 'add_[название ограничения]'
+        Например: 'add_con_mrg' для ограничения con_mrg в параметрах
         """
-
-        for val, func_ in self.__dict__.items():
-            if 'add_con' in val:
-                func_(opt_params[val])
+        for con_name, param in opt_params.items():
+            add_method_name = 'add_' + con_name
+            add_method = getattr(self, add_method_name, None)
+            if add_method is None:
+                # такой метод не реализован
+                continue
+            add_method(param)
 
     @abc.abstractmethod
     def solve(self, solver, options) -> Dict:
@@ -94,7 +97,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.obj = None
         self.bounds = None
         self.x0 = None
-        self.constraints = []
+        self.constraints = {}
         # нормировка для целевой функции
         self.k = 0.1 * sum(self.P * self.Q)
 
@@ -112,7 +115,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         # self.x0 = np.random.uniform(self.bounds[0], self.bounds[1])
         A = np.eye(self.N, self.N)
         constr_bounds = LinearConstraint(A, self.bounds[0], self.bounds[1])
-        self.constraints.append(constr_bounds)
+        self.constraints['var_bounds'] = constr_bounds
 
     def init_objective(self):
         def objective(x):
@@ -128,23 +131,27 @@ class ScipyNlpOptimizationModel(OptimizationModel):
             m = sum((self.P * x_ - self.C) * self.Q * self._el(self.E, x_))
             return m
         constr = NonlinearConstraint(con_mrg, m_min, np.inf)
-        self.constraints.append(constr)
+        self.constraints['con_mrg'] = constr
 
     def solve(self, solver='slsqp', options={}):
 
         result = minimize(self.obj,
                           self.x0,
                           method=solver,
-                          constraints=self.constraints,
+                          constraints=self.constraints.values(),
                           options=options)
 
         self.data['x_opt'] = result['x'][self.plu_line_idx[self.plu_idx]]
         self.data['P_opt'] = self.data['x_opt'] * self.data['P']
         self.data['Q_opt'] = self.Q * self._el(self.E, self.data['x_opt'])
 
+        status = str(result['status'])
+        status = 'ok' if status == '0' and solver == 'slsqp' else status
+        status = 'ok' if status == '1' and solver in ('cobyla', 'trust-constr') else status
+
         return {
             'message': str(result['message']),
-            'status': str(result['status']),
+            'status': status,
             'model': result,
             'data': self.data
         }
@@ -225,9 +232,11 @@ class PyomoNlpOptimizationModel(OptimizationModel):
         self.data['P_opt'] = self.data['x_opt'] * self.data['P']
         self.data['Q_opt'] = [self.Q[i] * pyo.value(self._el(i)) for i in self.model.x]
 
+        status = str(result.solver.status)
+
         return {
             'message': str(result.solver.termination_condition),
-            'status': str(result.solver.status),
+            'status': status,
             'model': self.model,
             'data': self.data
         }
@@ -317,7 +326,7 @@ class CvxpyLpOptimizationModel(OptimizationModel):
         # Задаём объекты для формирования
         self.x = None
         self.obj = None
-        self.constraints = []
+        self.constraints = {}
         self.x_mask = None
 
     def init_variables(self):
@@ -329,23 +338,23 @@ class CvxpyLpOptimizationModel(OptimizationModel):
         mask[mask_idx > np.array(self.grid_size).reshape(-1, 1) - 1] = 0
         self.x_mask = mask
         con_any_price = cp.sum(cp.multiply(self.x, self.x_mask), axis=1) == 1
-        self.constraints.append(con_any_price)
+        self.constraints['var_any_price'] = con_any_price
 
     def init_objective(self):
         self.obj = cp.Maximize(cp.sum(cp.multiply(self.x, self.Ps * self.Qs)))
 
     def add_con_mrg(self, m_min):
         con_mrg = cp.sum(cp.multiply(self.x, (self.Ps - self.C) * self.Qs)) >= m_min
-        self.constraints.append(con_mrg)
+        self.constraints['con_mrg'] = con_mrg
 
     def add_con_chg_cnt(self, nmax=10000):
         con_chg_cnt = cp.sum(
             cp.multiply(self.x[np.arange(self.N), self.P_idx], self.n_plu)[self.P_idx > 0]
         ) >= sum(self.n_plu) - nmax
-        self.constraints.append(con_chg_cnt)
+        self.constraints['con_chg_cnt'] = con_chg_cnt
 
     def solve(self, solver='ECOS_BB', options={}):
-        problem = cp.Problem(self.obj, self.constraints)
+        problem = cp.Problem(self.obj, self.constraints.values())
         problem.solve(solver, **options)
 
         if self.x.value is None:
@@ -364,9 +373,12 @@ class CvxpyLpOptimizationModel(OptimizationModel):
         self.data['Q_opt'] = Q_opt
         self.data['x_opt'] = x_opt
 
+        status = str(problem.status)
+        status = 'ok' if status == 'optimal' else status
+
         return {
             'message': str(problem.solution.status),
-            'status': str(problem.status),
+            'status': status,
             'model': problem,
             'data': self.data,
             'opt_idx': x_opt_idx
