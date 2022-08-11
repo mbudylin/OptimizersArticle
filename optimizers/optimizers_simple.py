@@ -45,7 +45,6 @@ class OptimizationModel(abc.ABC):
         if 'x_init' in self.data.columns:
             self.x_init = self.data['x_init'].values
 
-
     @abc.abstractmethod
     def init_variables(self):
         """
@@ -61,21 +60,11 @@ class OptimizationModel(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_con_mrg(self, m_min):
+    def init_constraints(self):
         """
         Добавление в модель ограничения на маржу
         """
         pass
-
-    def add_constraints(self, opt_params: Dict):
-        """
-        Добавление ограничений, если они заданы.
-        Название метода должно начинаться с 'add_con', например: 'add_con_mrg'
-        """
-
-        for val, func_ in self.__dict__.items():
-            if 'add_con' in val:
-                func_(opt_params[val])
 
     @abc.abstractmethod
     def solve(self, solver, options) -> Dict:
@@ -85,7 +74,7 @@ class OptimizationModel(abc.ABC):
         pass
 
 
-class ScipyNlpOptimizationModel(OptimizationModel):
+class ScipyModel(OptimizationModel):
     """
     Класс, который создаёт NLP оптимизационную модель на базе библиотеки scipy
     """
@@ -98,6 +87,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.bounds = None
         self.x0 = None
         self.constraints = []
+
         # нормировка для целевой функции
         self.k = 0.1 * sum(self.P * self.Q)
 
@@ -153,7 +143,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         }
 
 
-class PyomoNlpOptimizationModel(OptimizationModel):
+class PyomoModel(OptimizationModel):
 
     def __init__(self, data):
         super().__init__(data, 'data_nlp')
@@ -236,141 +226,4 @@ class PyomoNlpOptimizationModel(OptimizationModel):
         }
 
 
-class PyomoLpOptimizationModel(OptimizationModel):
 
-    def __init__(self, data):
-        super().__init__(data, 'data_milp')
-
-        self.N = len(self.data['plu_line_idx'])
-        self.grid_size = self.data['grid_size'].values
-        self.g_max = max(self.grid_size)
-        self.plu_line_idx = self.data['plu_line_idx'].values
-        self.n_plu = self.data['n_plu'].values
-        self.P_idx = self.data['P_idx'].values
-        self.Ps = np.vstack(self.data['Ps'].values)
-        self.Qs = np.vstack(self.data['Qs'].values)
-
-        # границы для индексов
-        self.xs = self.data['xs'].values
-        # Задаём объект модели pyomo
-        self.model = pyo.ConcreteModel()
-
-    def init_variables(self):
-        # задаем бинарную метку для цены
-        def init_fun(model, i, j):
-            return 1 if self.P_idx[i] == j else 0
-
-        self.model.x = pyo.Var(range(self.N), range(self.g_max), initialize=init_fun, domain=pyo.Binary)
-        # одна единичка для каждого товара
-        self.model.con_any_price = pyo.Constraint(pyo.Any)
-        for i in range(self.N):
-            self.model.con_any_price[i] = sum(self.model.x[i, j] for j in range(self.grid_size[i])) == 1
-
-    def init_objective(self):
-        objective = sum(sum(self.Ps * self.Qs * self.model.x))
-        self.model.obj = pyo.Objective(expr=objective, sense=pyo.maximize)
-
-    def add_con_mrg(self, m_min, m_max=None):
-        con_mrg_expr = sum(sum((self.Ps - self.C.reshape(-1, 1)) * self.Qs * self.model.x)) >= m_min
-        self.model.con_mrg = pyo.Constraint(expr=con_mrg_expr)
-
-    def add_con_chg_cnt(self, nmax=10000):
-        con_expr = sum(self.model.x[i, self.P_idx[i]] * self.n_plu[i]
-                       for i in range(self.N) if self.P_idx[i] > 0) >= sum(self.n_plu) - nmax
-        self.model.con_chg_cnt = pyo.Constraint(expr=con_expr)
-
-    def solve(self, solver='cbc', options={}):
-        solver = pyo.SolverFactory(solver, io_format='python', symbolic_solver_labels=False)
-        for option_name, option_value in options.items():
-            solver.options[option_name] = option_value
-        result = solver.solve(self.model)
-        x_sol = [[self.model.x[i, j].value for j in range(self.grid_size[i])] for i in range(self.N)]
-        x_opt_idx = [np.argmax(x_sol[i]) for i in range(self.N)]
-        x_opt = [self.xs[i][x_opt_idx[i]] for i in range(self.N)]
-        P_opt = [self.Ps[i][x_opt_idx[i]] for i in range(self.N)]
-        Q_opt = [self.Qs[i][x_opt_idx[i]] for i in range(self.N)]
-
-        self.data['P_opt'] = P_opt
-        self.data['Q_opt'] = Q_opt
-        self.data['x_opt'] = x_opt
-        return {
-            'message': str(result.solver.termination_condition),
-            'status': str(result.solver.status),
-            'model': self.model,
-            'data': self.data,
-            'x_sol': x_sol,
-            'opt_idx': x_opt_idx
-        }
-
-
-class CvxpyLpOptimizationModel(OptimizationModel):
-
-    def __init__(self, data):
-        super().__init__(data, 'data_milp')
-        self.grid_size = self.data['grid_size'].values
-        self.g_max = max(self.grid_size)
-        self.plu_line_idx = self.data['plu_line_idx'].values
-        self.n_plu = self.data['n_plu'].values
-        self.P_idx = self.data['P_idx'].values
-        self.Ps = np.array(self.data['Ps'].to_list())
-        self.Qs = np.array(self.data['Qs'].to_list())
-        self.C = self.data['C'].values.reshape(-1, 1)
-        # границы для индексов
-        self.xs = np.array(self.data['xs'].to_list())
-        # Задаём объекты для формирования
-        self.x = None
-        self.obj = None
-        self.constraints = []
-        self.x_mask = None
-
-    def init_variables(self):
-        self.x = cp.Variable(shape=(self.N, self.g_max), boolean=True)
-        # должна быть хотя бы одна цена из диапазона
-        # вспомогательная маска для упрощения матричных операций при формирований задачи
-        mask_idx = np.repeat(np.arange(self.g_max), self.N).reshape(self.g_max, self.N).T
-        mask = np.ones((self.N, self.g_max))
-        mask[mask_idx > np.array(self.grid_size).reshape(-1, 1) - 1] = 0
-        self.x_mask = mask
-        con_any_price = cp.sum(cp.multiply(self.x, self.x_mask), axis=1) == 1
-        self.constraints.append(con_any_price)
-
-    def init_objective(self):
-        self.obj = cp.Maximize(cp.sum(cp.multiply(self.x, self.Ps * self.Qs)))
-
-    def add_con_mrg(self, m_min):
-        con_mrg = cp.sum(cp.multiply(self.x, (self.Ps - self.C) * self.Qs)) >= m_min
-        self.constraints.append(con_mrg)
-
-    def add_con_chg_cnt(self, nmax=10000):
-        con_chg_cnt = cp.sum(
-            cp.multiply(self.x[np.arange(self.N), self.P_idx], self.n_plu)[self.P_idx > 0]
-        ) >= sum(self.n_plu) - nmax
-        self.constraints.append(con_chg_cnt)
-
-    def solve(self, solver='ECOS_BB', options={}):
-        problem = cp.Problem(self.obj, self.constraints)
-        problem.solve(solver, **options)
-
-        if self.x.value is None:
-            return {
-                'message': str(problem.solution.status),
-                'status': str(problem.status),
-                'model': problem,
-                'data': self.data,
-            }
-
-        x_opt_idx = [np.argmax(self.x.value[i, :self.grid_size[i]]) for i in range(self.N)]
-        x_opt = self.xs[np.arange(self.N), x_opt_idx]
-        P_opt = self.Ps[np.arange(self.N), x_opt_idx]
-        Q_opt = self.Qs[np.arange(self.N), x_opt_idx]
-        self.data['P_opt'] = P_opt
-        self.data['Q_opt'] = Q_opt
-        self.data['x_opt'] = x_opt
-
-        return {
-            'message': str(problem.solution.status),
-            'status': str(problem.status),
-            'model': problem,
-            'data': self.data,
-            'opt_idx': x_opt_idx
-        }
