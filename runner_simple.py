@@ -49,10 +49,16 @@ if __name__ == '__main__':
             data = generate_simple_data(n, seed=args['seed'])
             model_pyomo_ipopt = pricing_optimization_simple(data, PyomoModel, 'ipopt')
             model_scipy_cobyla = pricing_optimization_simple(data, ScipyModel, 'cobyla')
-            print(n, model_pyomo_ipopt['t'], model_scipy_cobyla['t'])
-            times.append([n, model_pyomo_ipopt['t'], model_scipy_cobyla['t']])
+            print(n, model_pyomo_ipopt['t'], model_pyomo_ipopt['status'],
+                  model_scipy_cobyla['t'], model_scipy_cobyla['status'])
+            times.append([n,
+                          model_pyomo_ipopt['t'],
+                          model_pyomo_ipopt['status'],
+                          model_scipy_cobyla['t'],
+                          model_scipy_cobyla['status']
+                          ])
 
-        res = pd.DataFrame(times, columns=['N', 'pyomo_ipopt', 'scipy_cobyla'])
+        res = pd.DataFrame(times, columns=['N', 'pyomo_ipopt', 'pyomo_status', 'scipy_cobyla', 'scipy_status'])
         res.to_csv('data/stat_simple/stat.csv', sep='\t', index=False)
 
 
@@ -65,12 +71,11 @@ if __name__ == '__main__':
 
         plt.plot(data['N'], data['scipy_cobyla'], lw=2, label='scipy.cobyla')
         plt.plot(data['N'], data['pyomo_ipopt'], lw=2, label='pyomo.ipopt')
+        plt.yscale('log')
         plt.legend()
         plt.xlabel('Размерность задачи')
-        plt.ylabel('Время решения задачи, (с)')
+        plt.ylabel('Время решения задачи, секунды')
         plt.title('Время решения MINLP задачи через pyomo.bonmin')
         plt.grid()
         plt.savefig('./images/time_solve_simple.png')
         plt.show()
-
-
