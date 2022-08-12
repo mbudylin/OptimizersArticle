@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>optimizers_text</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>1_article_how_to</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14579,7 +14579,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-open-source-%D1%81%D0%BE%D0%BB%D0%B2%D0%B5%D1%80%D0%BE%D0%B2-%D0%B8-%D0%B8%D1%85-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2-%D1%80%D0%B8%D1%82%D0%B5%D0%B9%D0%BB%D0%B5">&#1057;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1077; open-source &#1089;&#1086;&#1083;&#1074;&#1077;&#1088;&#1086;&#1074; &#1080; &#1080;&#1093; &#1087;&#1088;&#1080;&#1084;&#1077;&#1085;&#1077;&#1085;&#1080;&#1077; &#1074; &#1088;&#1080;&#1090;&#1077;&#1081;&#1083;&#1077;<a class="anchor-link" href="#%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-open-source-%D1%81%D0%BE%D0%BB%D0%B2%D0%B5%D1%80%D0%BE%D0%B2-%D0%B8-%D0%B8%D1%85-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2-%D1%80%D0%B8%D1%82%D0%B5%D0%B9%D0%BB%D0%B5">&#182;</a></h1>
+<h1 id="%D0%9E%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-%D0%B2-%D1%80%D0%B8%D1%82%D0%B5%D0%B9%D0%BB%D0%B5">&#1054;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1099;&#1077; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080; &#1074; &#1088;&#1080;&#1090;&#1077;&#1081;&#1083;&#1077;<a class="anchor-link" href="#%D0%9E%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-%D0%B2-%D1%80%D0%B8%D1%82%D0%B5%D0%B9%D0%BB%D0%B5">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14591,30 +14591,90 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Привет, Habr! На связи отдел аналитики данных X5 Tech.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Сегодня мы поговорим об очень интересном разделе прикладной математики — оптимизации.</p>
-<p>Практически каждый человек ежедневно решает оптимизационные задачи даже не задумываясь об этом.
-Например, мы, как правило, хотим минимизировать наши расходы для приобретения необходимых товаров, но при условии, чтобы эти товары были максимально полезны.
-Полезность здесь у каждого своя — для одних она определяется количеством растительных жиров, для других — наличием привычных товаров, и тд.
-Другой пример — мы хотим распределить свой маршрут в отпуске так, чтобы посетить всё, что запланировали с минимальными временными затратами на дорогу, и при этом не забыть почилить на пляже.</p>
-<p>Бизнес требования часто сводятся к задаче многокритериальной оптимизации и задаче оптимального управления.
+<p>Цели данной статьи:</p>
+<ul>
+<li>рассказать про задачи в ритейле, которые могут решаться методами оптимизации,</li>
+<li>продемонстрировать, как модельная задача ценообразования решается пакетами <a href="http://www.pyomo.org/"><strong>Pyomo</strong></a> и <a href="https://scipy.org/"><strong>Scipy</strong></a>,</li>
+<li>сравнить производительность солверов PYOMO и Scipy на примере поставленной задачи.</li>
+</ul>
+<p>Так как данная тема достаточно обширна, то помимо данной статьи (статья 1) мы планируем написать ещё две:</p>
+
+<pre><code>1) Статья 2: Сравнение open-source солверов на примере задачи ритейла.
+2) Статья 3: Решение модельной задачи ценообразования оптимизаторами в различных постановках.</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87">&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;&#1099; &#1079;&#1072;&#1076;&#1072;&#1095;<a class="anchor-link" href="#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Практически каждый человек ежедневно решает оптимизационные задачи даже не задумываясь об этом. Пара примеров:</p>
+<p><strong>Закупка.</strong>
+Как правило, мы хотим минимизировать наши расходы для приобретения необходимых товаров, но при условии, чтобы эти товары были максимально полезны.
+Полезность здесь у каждого своя:
+для одних она определяется количеством растительных жиров,
+для других — минимальной суммарной стоимостью корзины,
+для третьих — наличием привычных товаров, и тд.</p>
+<p><strong>Отпуск.</strong>
+Во время ограниченного отпуска мы хотим распределить свой маршрут так,
+чтобы посетить всё, что запланировали с минимальными временными затратами на дорогу, и при этом не забыть позагорать на пляже.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Бизнес требования часто приводят к задаче многокритериальной оптимизации и задаче оптимального управления.
 В таких постановках решения, найденные методами оптимизации, чрезвычайно полезны для принятия решений.
 Приведём для иллюстрации несколько задач из области ритейла.</p>
-<p><strong>Оптимальное распределение маркетингового бюджета</strong></p>
-<p>Реализовать максимально эффективно выделенный на маркетинговые активности бюджет.
-Есть несколько каналов для рекламных акций, выделенный бюджет, цель — максимально выгодно инвестировать бюджет,
+<p><strong>Ценообразование.</strong>
+Поиск оптимальной конфигурации цен с учетом ценового позиционирования, допустимых ценовых диапазонов
+для каждого товара и набора бизнес-ограничений.
+Цены должны максимизировать суммарный доход, а прибыль быть не ниже на заданного уровня.</p>
+<p><strong>Оптимальное распределение маркетингового бюджета.</strong>
+Реализовать максимально эффективно выделенный на маркетинговые активности бюджет.
+Есть несколько каналов для рекламных акций, цель — максимально выгодно инвестировать бюджет,
 чтобы суммарный доход со всех коммуникаций был максимален.
 Также необходимо учесть бизнес ограничения на нагрузку каждого канала + частоту взаимодействия.</p>
-<p><strong>Планирование ассортимента</strong></p>
-<p>Подобрать уровни ассортимента мерчгрупп так, чтобы максимизировать оборот с учетом полочного пространства, выделенного на мерчгруппу.</p>
-<p><strong>Закупка товаров</strong></p>
-<p>Задача — распределить бюджет, выделенный на закупки, для поддержания товарооборота, достаточного уровня сервиса,
+<p><strong>Планирование ассортимента.</strong>
+Подобрать ассортимент товаров так, чтобы максимизировать оборот с учетом полочного пространства и других характеристик магазина.</p>
+<p><strong>Закупка товаров.</strong>
+Задача — распределить бюджет, выделенный на закупки, для поддержания товарооборота, достаточного уровня сервиса,
 и при этом достигнуть определенных финансовых показателей под выделенный бюджет на закупки.</p>
-<p><strong>Ценообразование</strong></p>
-<p>Поиск оптимальной конфигурации цен с учетом ценового позиционирования, допустимых ценовых диапазонов для каждого товара и набора бизнес-ограничений. Цены должны максимизировать суммарный доход, а прибыль быть не ниже на заданного уровня.</p>
-<p>Для формулировки оптимизационной задачи требуется <strong><em>качественная</em></strong> бизнес-экспертиза, чтобы определить, что хотим максимизировать/минимизировать, какие условия надо соблюдать и т.п.
-Это весьма трудоёмкий по времени процесс, из-за чего подробное изучение инструментов решения сформулированных задач зачастую пропускается.
-Нам на практике встречались даже реализации в Excel, что для MVP решения является приемлемым подходом, но при дальнейшем масштабировании задачи, необходимо искать более оптимальное и желательно бесплатное решение.</p>
-<p>В этой статье мы рассмотрим несколько открытых солверов, сравним их возможности и скорость работы на модельной задаче ценообразования.</p>
+<p><strong>Логистика.</strong>
+Задача — найти оптимальный график доставки продуктов с учётом вместимости грузовиков, затрат на логистику и тд.</p>
 
 </div>
 </div>
@@ -14652,10 +14712,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </li>
 <li><p><strong>NLP</strong> (nonlinear programming) - нелинейное программирование, возникает когда хотя бы одна из функций $f(x),\ g_i(x),\ h_j(x)$ нелинейна;</p>
 </li>
-<li><p><strong>MINLP</strong> (mixed integer nonlinear programming) - смешанное целочисленное нелинейное программирование, возникает как и в MILP, когда часть переменных принимает целочисленные значения;</p>
+<li><p><strong>MINLP</strong> (mixed integer nonlinear programming) - смешанное целочисленное нелинейное программирование,
+возникает как и в MILP, когда часть переменных принимает целочисленные значения;</p>
 </li>
 </ul>
-<p><strong>NLP</strong> в свою очередь можно подробить еще на множество разных классов в зависимости от вида нелинейности и наличия/отсутствия выпуклости.</p>
+<p><strong>NLP</strong> в свою очередь можно подробить еще на множество разных классов в зависимости от вида нелинейности и выпуклости.</p>
+<p>Подробнее о том, как получаются различные виды задачи ценообразования исходя из бизнес-формулировки, мы будем говорить в статье 3.</p>
 
 </div>
 </div>
@@ -14667,7 +14729,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%D0%9E%D0%B1%D0%B7%D0%BE%D1%80-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%B2-python">&#1054;&#1073;&#1079;&#1086;&#1088; &#1087;&#1072;&#1082;&#1077;&#1090;&#1086;&#1074; python<a class="anchor-link" href="#%D0%9E%D0%B1%D0%B7%D0%BE%D1%80-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%B2-python">&#182;</a></h2>
+<h2 id="%D0%9E%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-%D1%86%D0%B5%D0%BD%D0%BE%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">&#1054;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1084;&#1086;&#1076;&#1077;&#1083;&#1100;&#1085;&#1086;&#1081; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080; &#1094;&#1077;&#1085;&#1086;&#1086;&#1073;&#1088;&#1072;&#1079;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;<a class="anchor-link" href="#%D0%9E%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-%D1%86%D0%B5%D0%BD%D0%BE%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -14678,334 +14740,31 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Рассмотрим open-source пакеты и солверы для решения задач условной оптимизации в зависимости от ее типа, которые часто можно встретить в практических задачах.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8B%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8,-%D0%BF%D1%80%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D1%8F%D1%8E%D1%89%D0%B8%D0%B5-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D1%85-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87">&#1054;&#1090;&#1082;&#1088;&#1099;&#1090;&#1099;&#1077; &#1073;&#1080;&#1073;&#1083;&#1080;&#1086;&#1090;&#1077;&#1082;&#1080;, &#1087;&#1088;&#1077;&#1076;&#1086;&#1089;&#1090;&#1072;&#1074;&#1083;&#1103;&#1102;&#1097;&#1080;&#1077; &#1080;&#1085;&#1090;&#1077;&#1088;&#1092;&#1077;&#1081;&#1089; &#1076;&#1083;&#1103; &#1088;&#1077;&#1096;&#1077;&#1085;&#1080;&#1103; &#1086;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1099;&#1093; &#1079;&#1072;&#1076;&#1072;&#1095;<a class="anchor-link" href="#%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8B%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8,-%D0%BF%D1%80%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D1%8F%D1%8E%D1%89%D0%B8%D0%B5-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D1%85-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><a href="https://scipy.org/"><strong>Scipy</strong></a> - библиотека, которая содержит большой набор функций для научных вычислений,
-в том числе имеет инструменты для решения оптимизационных задач, находящиеся в модуле scipy.optimize.
-В модуле находятся методы для решения задач линейного программирования, нелинейного программирования (как условного, так и безусловного).
-В документации <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">scipy.optimize.minimize</a> можно найти,
-что условную оптимизацию с нелинейностью поддерживают <strong>cobyla</strong>, <strong>slsqp</strong>, <strong>trust-constr</strong>,
-также там можно найти краткое описание методов и ссылки на статьи, также обзор солверов в <a href="https://habr.com/ru/company/ods/blog/448054/">статье на хабре</a></p>
-<p><a href="http://www.pyomo.org/"><strong>Pyomo</strong></a> - пакет, который содержит ряд инструментов для формулирования, решения и анализа оптимизационных моделей.
-Главная особенность — это удобный интерфейс для структурированного формулирования оптимизационной задачи и поддержка большого количества солверов, в том числе коммерческих.
-По сути pyomo занимается “перевариванием” сформулированной модели в формат, понятный для запускаемого солвера, потом забирает его и передает в интерфейс python.
-Является частью проекта <a href="https://www.coin-or.org/">COIN-OR</a>, который содержит также ряд солверов.
-Среди них можно выделить <a href="https://github.com/coin-or/Ipopt">Ipopt</a>, <a href="https://github.com/coin-or/Cbc">Cbc</a>.
-Ipopt позволяет находить локальные оптимумы в задаче NLP с помощью прямо-двойственного метода внутренней точки, подробнее в оригинальной <a href="http://www.optimization-online.org/DB_HTML/2004/03/836.html">статье</a>.
-В Cbc реализован метод решения задачи MILP, основанный на алгоритме, сочетающем в себе метод ветвей и границ и секущих плоскостей <a href="https://en.wikipedia.org/wiki/Branch_and_cut">wiki</a>.
-Также для LP имеется поддержка пакета <a href="https://en.wikipedia.org/wiki/GNU_Linear_Programming_Kit">glpk</a>.
-И напоследок отметим еще один солвер <a href="https://github.com/coin-or/Bonmin">bonmin</a>, который построен поверх <strong>Cbc</strong> и <strong>Ipopt</strong> - сочетание двух солверов,
-позволяющее браться за задачи <strong>MINLP</strong>.</p>
-<p><a href="https://www.cvxpy.org/index.html"><strong>Cvxpy</strong></a> - данный пакет специально заточен для решения задач выпуклой оптимизации (convex optimization).
-После того как задача сформулирована, перед решением проверяется выпуклость и аффинность целевой функции и ограничений с помощью правил <a href="https://www.cvxpy.org/tutorial/dcp/index.html">DCP</a>
-(disciplined convex programming), после проверки задача преобразуется в стандартную форму и передается квадратичному или коническому солверу.
-Полный список солверов и решаемых задач, с их помощью можно найти <a href="https://www.cvxpy.org/tutorial/advanced/index.html">здесь</a>.</p>
-<p>Итого можно сформировать таблицу с открытыми библиотеками в python, солверами и видами задач, которые они могут решать:</p>
-<table>
-<thead><tr>
-<th>Пакеты в python</th>
-<th>Солвер(метод)</th>
-<th>NLP</th>
-<th>LP</th>
-<th>MILP</th>
-<th>MINLP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scipy</td>
-<td>cobyla</td>
-<td>y</td>
-<td>n</td>
-<td>n</td>
-<td>n</td>
-</tr>
-<tr>
-<td>scipy</td>
-<td>slsqp</td>
-<td>y</td>
-<td>n</td>
-<td>n</td>
-<td>n</td>
-</tr>
-<tr>
-<td>scipy</td>
-<td>trust-constr</td>
-<td>y</td>
-<td>n</td>
-<td>n</td>
-<td>n</td>
-</tr>
-<tr>
-<td>pyomo</td>
-<td>ipopt</td>
-<td>y</td>
-<td>y</td>
-<td>n</td>
-<td>n</td>
-</tr>
-<tr>
-<td>pyomo, cvxpy</td>
-<td>glpk</td>
-<td>n</td>
-<td>y</td>
-<td>y</td>
-<td>n</td>
-</tr>
-<tr>
-<td>pyomo, cvxpy</td>
-<td>cbc</td>
-<td>n</td>
-<td>y</td>
-<td>y</td>
-<td>n</td>
-</tr>
-<tr>
-<td>cvxpy</td>
-<td>ecos</td>
-<td>y</td>
-<td>y</td>
-<td>y</td>
-<td>n</td>
-</tr>
-<tr>
-<td>pyomo</td>
-<td>bonmin</td>
-<td>y</td>
-<td>y</td>
-<td>y</td>
-<td>y</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B0-%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B2-%D1%86%D0%B5%D0%BD%D0%BE%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8">&#1052;&#1086;&#1076;&#1077;&#1083;&#1100;&#1085;&#1072;&#1103; &#1079;&#1072;&#1076;&#1072;&#1095;&#1072; &#1086;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080; &#1074; &#1094;&#1077;&#1085;&#1086;&#1086;&#1073;&#1088;&#1072;&#1079;&#1086;&#1074;&#1072;&#1085;&#1080;&#1080;<a class="anchor-link" href="#%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B0-%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B2-%D1%86%D0%B5%D0%BD%D0%BE%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Как уже было сказано выше, одной из основных целей ценообразования может быть формирование таких цен, которые:</p>
+<p>Разобравшись с разными разновидностями постановок оптимизационных задач, перейдём к построению модели.</p>
+<p>Предположим, что для товара $i$ известно значение эластичности $E_{i}$, а спрос задаётся следующей зависимостью:</p>
+\begin{equation}
+Q_{i}(P_{i}) = Q_{0, i} \exp\bigg(E_{i} \cdot \bigg(\frac{P_{i}}{P_{0, i}} - 1\bigg)\bigg).
+\end{equation}<p>Введём обозначения:</p>
 <ul>
-<li><p>Соответствуют некоторому набору правил, бизнес-логике и т.п.</p>
-</li>
-<li><p>Позволяют достигать определенных целей, например, повышение прибыли или оборота, без просадки в других показателях.</p>
-</li>
+<li>$n$ - количество товаров,</li>
+<li>$C_{i}$ - себестоимость i-го товара,</li>
+<li>$Q_{i}, Q_{0, i}$ - спрос по новой $P_{i}$ и текущей $P_{0, i}$ ценам, соответственно,</li>
+<li>$x_{i}=\cfrac{P_{i}}{P_{0, i}}$.</li>
 </ul>
-<p>Первый пункт по сути задает диапазон, в котором производится поиск новой цены, возможные соотношения между ценами на товары,
-соотношения цен с ценами конкурентов, условия на (не)изменение цены.</p>
-<p>Второй задает нам целевой функционал для задачи оптимизации и набор ограничений, которые контролируют остальные показатели.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%9E%D0%B1%D0%BE%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D1%81%D0%BE%D0%BA%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F">&#1054;&#1073;&#1086;&#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1103; &#1080; &#1089;&#1086;&#1082;&#1088;&#1072;&#1097;&#1077;&#1085;&#1080;&#1103;<a class="anchor-link" href="#%D0%9E%D0%B1%D0%BE%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D1%81%D0%BE%D0%BA%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Введем обозначения:</p>
-<p>$n$ - количество товаров,</p>
-<p>$n'$ - количество продуктовых линеек,</p>
-<p>$C_i$ - себестоимость товара $i$,</p>
-<p>$Q$ - спрос по новой цене $P$,</p>
-<p>$Q_0$ - спрос по текущей цене $P_{0}$,</p>
-<p>$R = P \cdot Q$ - выручка,</p>
-<p>$M = (P - C) \cdot Q$ - маржа,</p>
-<p>$E$ - коэффициент эластичности (отклик).</p>
-<p>$\gamma$ - набор индексов товаров, находящихся в одной линейке, $\gamma_{j}$ - $j-$ая линейка,
-в которой $m_j$ товаров, $\gamma_{j, k}$ - $k$-ый индекс в $j$-ой линейке.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C">&#1052;&#1086;&#1076;&#1077;&#1083;&#1100;<a class="anchor-link" href="#%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Рассмотрим следующую постановку задачи</strong>:</p>
-<p>Необходимо поднять выручку, при условии, что маржа не должна просесть, т.е. оставаться на уровне не ниже текущей в абсолютном выражении.</p>
-<p>При этом необходимо соблюдать следующие ценовые границы:
-$\pm 10$% от текущей цены, $\pm 15$% от среднерыночной цены, если диапазоны накладываются,
-то финальный диапазон — пересечение, в противном случае отклонение от рынка не рассматривается, остается только отклонение от текущей цены.
-Также необходимо обеспечивать равенство цен товаров, находящихся в одной линейке товаров (товары, которые отличаются только вкусом).
-И в конце не забыть, что цена должна быть формата x.99.</p>
-<p>Чтобы начать решать задачу, требуется знать отклик изменения спроса на изменение цены.
-Здесь мы не будем отдельно останавливаться на том как оценивать этот отклик, будем считать что он задан в следующем виде:</p>
-\begin{equation}
-\tag{1.1}
-Q(P) = Q_{0} \exp\bigg(E \cdot \bigg(\frac{P}{P_0} - 1\bigg)\bigg).
-\end{equation}<p>Обозначив $\cfrac{P}{P_0}$ через $x$, функцию спроса можно переписать в следующем виде:</p>
-\begin{equation}
-\tag{1.2}
-Q(x) = Q_0 \exp(E \cdot (x-1))
-\end{equation}<p>Можно сформулировать поставленную задачу как задачу <strong>NLP</strong> или <strong>LP</strong>, рассмотрим оба варианта.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="NLP-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8"><strong>NLP</strong> &#1087;&#1086;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1082;&#1072; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080;<a class="anchor-link" href="#NLP-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-$$
-x \in \mathbb{R} ^ n
-$$\begin{equation}
-\tag{2.1}
-R(x) = \sum_{i=1}^{n} P_i \cdot Q_i(x_i) = \sum_{i=1}^{n} P_{0, i} \cdot x_{i} \cdot Q_{0, i} \exp{(E_i\cdot(x_i-1))} \to \max_{x}
-\end{equation}\begin{equation}
-\tag{2.2}
-x_i \in [x_{l, i}, x_{u, i}], \ i=1..n
-\end{equation}\begin{equation}
-\tag{2.3}
-M(x) = \sum_{i=1}^{n} (P_i - C_i) \cdot Q_i(x_i) = \sum_{i=1}^{n} (P_{0, i} \cdot x_{i} - C_{i}) \cdot Q_{0, i} \exp{(E_i\cdot(x_i-1))} \geqslant M_0
-\end{equation}\begin{equation}
-\tag{2.4.1}
-x_{\gamma_{j, 1}} = x_{\gamma_{j, 2}} = ... = x_{\gamma_{j, m_j}}, \ j=1..k
-\end{equation}<p>Ограничение (2.4.1) линейно, его можно записать в матричной форме, так как чаще всего оптимизаторы принимают линейные ограничения именно в таком виде:</p>
-\begin{equation}
-\tag{2.4.2}
-A \cdot x = 0, 
-\end{equation}<p>В A все элементы матрицы нулевые, кроме
-\begin{equation}
-\ A(\gamma_{j,1}, \gamma_{j, 1}) = -A(\gamma_{j, 1}, \gamma_{j, 2}) = 1,\ ..\ , A(\gamma_{j,m_j-1}, \gamma_{j, m_j-1}) = -A(\gamma_{j, m_j-1}, \gamma_{j, m_j}) = 1, \ j=1..k
-\end{equation}</p>
-<p>(2.1) - это целевой функционал, (2.2) - ценовой диапазон, в котором ищется цена для каждого товара, (2.3) - ограничение на маржу снизу, (2.4.1), (2.4.2) - описывает равенство цен в линейках,
- здесь используются $x$, так как подразумевается, что текущая цена является одинаковой во всей линейке.
-В данной постановке $M_0$ - это текущее значение маржи:</p>
-\begin{equation}
-M_0 = \sum_{i=1}^{n} (P_{0, i} - C_{0, i}) \cdot Q_{0, i} 
-\end{equation}<p>Цена, которая будет пересчитана по (1.2) является непрерывной из диапазона (2.2), поэтому после необходимо округлить эти цены.
-Конечно, округление несколько поломает "оптимальность".</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="MILP-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8"><strong>MILP</strong> &#1087;&#1086;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1082;&#1072; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080;<a class="anchor-link" href="#MILP-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Преимуществом данного подхода является то, что цены можно сразу искать по сетке, которые удовлетворяют ограничению (2.2) и правилам округления.
-Например, если текущая цена 99.99, то сетка цен может быть такой $\hat{P}$ = [89.99; 90.99; ... 108.99; 109.99], всего 21 значение,
-новую цену можно закодировать бинарной маской длиной 21 с одной единичкой, этого можно добиться введя переменную - бинарный вектор длины 21 $\hat{x}$,
-у которого сумма всех элементов равна 1: $sum(\hat{x}) = 1$, тогда точно будет выбрана одна цена.
-Для каждой цены необходимо получить сетку значений продаж $\hat{Q}$, при этом в общем случае нет необходимости в наличии аналитической функции спроса,
-$\hat{Q}$ можно брать хоть из бустинга или какого-нибудь другого "черного ящика".
-Что касается линеек, можно было бы ввести дополнительные ограничения на равенство $\hat{x}$ по аналогии с (2.4.1),
-но намного проще и дешевле схлопнуть $\hat{Q}$ по линейкам, так как цены внутри них будут искаться по одной и той же сетке и поиск, соответственно, производить по линейкам.</p>
-<p>Итого, чтобы сформулировать задачу, нужно:</p>
+<p>Задача — найти такой набор новых цен, чтобы:</p>
 <ul>
-<li>сформировать сетку цен $\hat{P}_i$ размера $g_i$ для каждого товара $i$, которые удовлетворяют граничным условиям и правилам округления</li>
-<li>задать бинарный вектор $\hat{x}_i$ </li>
-<li>посчитать уровень спроса $\hat{Q}_i$ для сетки цен $\hat{P}_i$</li>
-<li>схлопнуть $\hat{Q}_i$ по линейкам, взяв сумму</li>
+<li>максимизировать оборот со всех товаров,</li>
+<li>общая прибыль осталась на прежнем уровне,</li>
+<li>цены лежали в заданных границах (индекс <strong><em>l</em></strong> и <strong><em>u</em></strong> - для нижней и верхней, соответственно).</li>
 </ul>
-<p>Обозначим за $n'$ - количество линеек.</p>
-<p>Таким образом, получим такую постановку:</p>
-\begin{equation}
-\tag{3.1}
-\hat{x}_i \in \{0, 1\}^{g_i},\ i=1..n'
-\end{equation}\begin{equation}
-\tag{3.2}
-R(\hat{x}) = \sum_{i=1}^{n'} \sum_{j=1}^{g_i} \hat{P}_{i, j} \cdot \hat{Q}_{i, j} \cdot \hat{x}_{i, j}
-\end{equation}\begin{equation}
-\tag{3.3}
-\sum_{j=1}^{g_i} \hat{x}_{i, j} = 1,\ i=1..n'
-\end{equation}\begin{equation}
-\tag{3.4}
-M(\hat{x}) = \sum_{i=1}^{n'} \sum_{j=1}^{g_i} (\hat{P}_{i, j} - C_i) \cdot \hat{Q}_{i, j} \hat{x}_{i, j} \geqslant M_0
-\end{equation}
+<p>Тогда оптимизационную задачу можно записать следующей системой:</p>
+\begin{cases}
+\sum_{i=1}^{n} P_i \cdot Q_i(x_i) \to \max_{x},\\
+\\
+\sum_{i=1}^{n} (P_i - C_i) \cdot Q_i(x_i) \geqslant \sum_{i=1}^{n} (P_{0, i} - C_i) \cdot Q_ {0, i},\\
+\\
+x_i \in [x_i^l, x_i^u], \ i=1..n\\
+\end{cases}
 </div>
 </div>
 </div>
@@ -15016,7 +14775,7 @@ M(\hat{x}) = \sum_{i=1}^{n'} \sum_{j=1}^{g_i} (\hat{P}_{i, j} - C_i) \cdot \hat{
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="MINLP-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8"><strong>MINLP</strong> &#1087;&#1086;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1082;&#1072; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080;<a class="anchor-link" href="#MINLP-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">&#182;</a></h3>
+<h2 id="%D0%A0%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8-%D0%B2-PYOMO-%D0%B8-Scipy">&#1056;&#1077;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1084;&#1086;&#1076;&#1077;&#1083;&#1080; &#1074; PYOMO &#1080; Scipy<a class="anchor-link" href="#%D0%A0%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8-%D0%B2-PYOMO-%D0%B8-Scipy">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -15027,206 +14786,12 @@ M(\hat{x}) = \sum_{i=1}^{n'} \sum_{j=1}^{g_i} (\hat{P}_{i, j} - C_i) \cdot \hat{
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Выше мы писали, что есть задача MINLP - это та, в которой часть переменных принимают целочисленные значения. Как они могут возникнуть в ценообразовании? Если мы захотим каким-то образом управлять количеством цен к изменению, то непрерывной оптимизицией уже не обойдешься, нужно включать некоторые дискретные правила. Допустим, что мы не хотим менять цену менее чем на $\varepsilon$ = 2% относительно текущей, то есть по сути говорим, что цена должна меняться как минимум на $\varepsilon$ или совсем не меняться, т.е. по такому правилу, если текущая цена - 100р., то цена должна быть либо в диапазоне [90; 98] либо [102; 110] либо оставаться неизменной. То есть наше множество, на котором мы ищем решение перестало быть непрерывным, для описания введем бинарные индикаторы того, на каком интервале происходит поиск:
-$y_{i}^{(l)}$, $y_{i}^{(m)}$, $y_{i}^{(r)}$ - в левом , цена не поменялась, в провом, соответственно. Тогда количеством цен к изменеию можно управлять через сумму индикаторов "цена не поменялась" - не меньше чем заданное число - $n-d$, здесь $d$ максимальное количество цен к изменению. Индикаторы в задачах MILP(MINLP) можно задавать с помощью так называемого метода big-M(в нашем случае обозначим M за K) - введение дополнительного слагаемого $K \cdot y $ к ограничениям, которое при $y = 1$ позволяет нарушить ограничение и, соответственно, зафиксировать этот момент. Запишем как может выглядеть описание ограничения выше:</p>
-\begin{equation}
-y_{i}^{(l)}, y_{i}^{(m)}, y_{i}^{(r)} \in \{0, 1\}, \ i=1..n
-\end{equation}\begin{equation}
-\tag{2.5.1}
-y_{i}^{(l)} + y_{i}^{(m)} + y_{i}^{(r)} = 1
-\end{equation}\begin{equation}
-\tag{2.5.2}
-x_{i} - (1 - \varepsilon) &lt;= K \cdot (1 - y_{i}^{(l)}),
-\end{equation}\begin{equation}
-\tag{2.5.3}
-x_{i} - (1 + \varepsilon) &gt;= -K \cdot (1 - y_{i}^{(r)}),
-\end{equation}\begin{equation}
-\tag{2.5.4}
-x_{i} - 1 &lt;= K \cdot (1 - y_{i}^{(m)}),
-\end{equation}\begin{equation}
-\tag{2.5.5}
-x_{i} - 1 &gt;= -K \cdot (1 - y_{i}^{(m)}), \ i = 1..n,
-\end{equation}\begin{equation}
-\tag{2.5.6}
-\sum_{i=1}^{n} y_{i}^{(m)} \geqslant n - d
-\end{equation}<p>Первая строчка говорит нам от том, что должен сработать ровно один индикатор. Перебором несложно убедиться, что система выше является непротиворечивой и по сути задает область поиска переменной $x_{i}$. Действительно, пусть сейчас $y^{(l)} = 1$, тогда $y^{(m)} = y^{(r)} = 0$ и ограничения (2.5.2)-(2.5.5) при подстановке после несложных преобразований примут вид: 
-$$x \leqslant (1 - \varepsilon),\\
-x \geqslant (1+\varepsilon) - K, \\
-x \leqslant 1 + K, \\
-x \geqslant 1 - K
-$$
-Выбрав $K$ - достаточно большим числом, можно убедиться, что окончательный диапазон будет $x \leqslant (1 - \varepsilon)$, что как раз соответствует тому, что мы хотели от $y^{(l)}$. Отдельно отметим (2.5.4) и (2.5.5) - они описывают равенство текущей цены при срабатывании $y^{(m)}$.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Как мы видим, в случае MINLP постановки задачи сразу вырастает количество переменных и ограничений, необхолимых для описания дискретных правил, можно ожидать что вместе с этим вырастает и вычислительная сложность, т.е. скорость решения такой задачи. Намного гармоничнее эти правила укладываются в MILP постановку задачу: Дополним задачу (3) ограничением на общее количество изменений цены.
-Его проще всего сформулировать через количество неизменяемых цен, для этого нужно иметь индекс текущей цены в сетке $p_{i}$ для $i$-ой линейки,
-если, конечно, он там есть, обозначим это индикатором $I[p_{i} \in g_{i}]$ - равен единичке, если текущая цена в сетке и ноль противном случае:</p>
-\begin{equation}
-\tag{3.5}
-\sum_{i=1}^{n'} I |\gamma_{i}| \hat{x}_{i, p_{i}} \geqslant n - d
-\end{equation}<p>Здесь $|\gamma_{i}|$ - размер $i$-ой линейки.</p>
-<p>Задачу MINLP может решать bonmin в pyomo, дополним вызов оптимизатора добавлением ограничения на количество изменяемых цен сверху add_con_chg_cnt,
-которое опишем в классе <a href="https://github.com/mbudylin/OptimizersArticle/blob/5a2f2de447411ee7d5663774f8870b05379451b0/optimizers/optimizers.py#L141">PyomoNlpOptimizationModel</a>.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BF%D0%BE%D0%B4%D1%85%D0%BE%D0%B4%D0%B0-%D0%BA-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B9-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">&#1054;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077; &#1087;&#1086;&#1076;&#1093;&#1086;&#1076;&#1072; &#1082; &#1088;&#1077;&#1096;&#1077;&#1085;&#1080;&#1102; &#1086;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1086;&#1081; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080;<a class="anchor-link" href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BF%D0%BE%D0%B4%D1%85%D0%BE%D0%B4%D0%B0-%D0%BA-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B9-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Решение задач будем производить с помощью библиотек и солверов, указанных выше.
-Slsqp, cobyla, trust-constr из scipy, ipopt из pyomo - будут использованы для решения задачи с непрерывными переменными (2.*).</p>
-<p>Cobyla не поддерживает ограничения типа равенства, коими здесь являются (2.4.1), но это не помешает нам, так как это ограничение просто равенство переменных,
-а значит внутри группы можно задать всего одну переменную — она будет общей для линейки.
-То же самое можно сделать и для всех остальных NLP солверов из scipy, а вот в pyomo можно явно задать равенство переменных, так в процессе подготовки он сам сделает замену на одну переменную.</p>
-<p>Что касается cvxpy, то несложно увидеть, что исходный функционал не является выпуклым.
-Более того, в общем случае, исходя из логических соображений можно прикинуть, что при увеличении цены спрос и вместе с ним выручка будут асимптотически падать до нуля,
-а при уменьшении цены ближе к нулю выручка будет стремиться к какому-то большому числу.
-То есть функция, описывающая выручку от цены, будет как минимум содержать выпуклость вниз (вогнутость), что при условии максимизации функции не удовлетворяет условиям выпуклого программирования.</p>
-<p>Задача (3.*) - будет решаться с помощью солверов glpk, cbc из пакетов pyomo, cvxpy и ecos из cvxpy.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%D0%9F%D0%B0%D0%B9%D0%BF%D0%BB%D0%B0%D0%B9%D0%BD">&#1055;&#1072;&#1081;&#1087;&#1083;&#1072;&#1081;&#1085;<a class="anchor-link" href="#%D0%9F%D0%B0%D0%B9%D0%BF%D0%BB%D0%B0%D0%B9%D0%BD">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Пайплайн решения задачи можно разбить на три этапа:</p>
-<ul>
-<li>препроцессинг, в который входит подготовка данных, формирование ценовых правил.</li>
-<li>расчёт — шаг с решением оптимизационной задачи.</li>
-<li>постпроцессинг — анализ полученного решения в случае успеха.</li>
-</ul>
-<p>Третий этап необходим, т.к. может сложится, что задачу на шаге 2 не удалось решить.
-Например, из-за пустого допустимого множества, т.е. множества, в котором переменные удовлетворяют всем ограничениям.
-В таких случаях можно просто подсветить, что задача не имеет решения или разработать схему исключения/ослабления ограничений и вернуться к шагу 2 с обновленными условиями.
-Обработка таких случаев это тоже отдельная и не всегда тривиальная задача, в этой статье касаться не будем.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%9F%D1%80%D0%B5%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%B8%D0%BD%D0%B3">&#1055;&#1088;&#1077;&#1087;&#1088;&#1086;&#1094;&#1077;&#1089;&#1089;&#1080;&#1085;&#1075;<a class="anchor-link" href="#%D0%9F%D1%80%D0%B5%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%B8%D0%BD%D0%B3">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Начнем с шага 1.
-Для модельной задачи ценообразования был реализован генератор данных, который по заданным параметрам формирует все необходимые данные для двух постановок задач, код генератора описан <a href="https://github.com/mbudylin/OptimizersArticle/blob/main/data_generator/data_generator.py">здесь</a>.
-На входе — количество линеек, ценовые диапазоны, заданные словарем, размер сетки для задачи (3.*) и seed для фиксации генератора случайных чисел.
-На выходе получаем данные для задачи NLP, MILP и словарь, содержащий список товаров для каждой линейки.
-При генерации данных опираемся на количество линеек, так как выше было показано, что поиск цен происходит внутри линейки, т.е. необходима одна переменная(или вектор в LP) на одну линейку.
-Размер сетки для поиска в MILP постановке возьмем 21 = текущая цена и по 10 цен в каждую сторону в рамках диапазона +- 10% с дальнейшей отсечкой по границам (2.2) с дальнейшим округлением.
-В результате округления можем слегка выйти за основной диапазон — будем считать это допустимым.
-Для удобства выполнения матричных операций, в случае, если финальный размер сетки для товара меньше заданной, дополняем сетку нулями справа.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="c1"># пример кода для запуска генератора данных</span>
-<span class="kn">from</span> <span class="nn">data_generator.data_generator</span> <span class="kn">import</span> <span class="n">generate_data</span>
-
-<span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">bounds_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;main_bounds&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="mf">1.1</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;market_bounds&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="mf">0.85</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="mf">1.15</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="n">grid_size</span> <span class="o">=</span> <span class="mi">21</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">bounds_params</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Для демонстрации решения необходимы данные.</p>
+<p>Реальные данные мы использовать не можем, поэтому будем генерировать их из случайных распределений (функция generate_base_data),
+исходя из наших представлений о возможных значениях величин в фуд-ритейле.</p>
 <details>
-<summary> Пример данных для NLP постановки </summary>
-<div><pre><code class="python">
-# plu_line - код продуктовой линейки
-# plu - код товара
-# plu_idx - индекс товара
-# P - текущая цена
-# Q - текущие продажи в штуках
-# E - эластичность
-# PC - цена конкурента/рыночная цена
-# C - себестоимость товара
-# x_lower - нижняя граница x для диапазона поиска цены
-# x_upper - верхняя граница x для диапазона поиска цены
-# x_init - начальное значение x для старта оптимизатора
-# fixed - метка, необходимо ли фиксировать x_init цену на товар, по умолчанию всегда 0
-data['data_nlp']
-
-<img src="images/data_nlp_sample.png" width="550" align="center"/>
-</code></pre><p></p></div>
+<summary> Пример данных для NLP постановки: </summary>
+<img src="images/a11_data.png" width="300" align="left"/>
 </details>
 </div>
 </div>
@@ -15238,83 +14803,19 @@ data['data_nlp']
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<details>
-<summary> Пример данных для MILP постановки </summary>
-<div><pre><code class="python">
-Пример данных для MILP постановки
-# plu_line - код продуктовой линейки
-# Ps - сетка цен для поиска
-# Qs - сетка продаж для кажой цены из Ps
-# xs - сетка индексов
-# grid_size - размер сетки
-# P_idx - индекс текущей цены в сетке. Если значение -1, то текщая цена не попала в сетку
-data['nlp']
-
-<img src="./images/data_milp_sample.png" width="1000" align="c"/>
-</code></pre><p></p></div>
-</details>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%A0%D0%B0%D1%81%D1%87%D1%91%D1%82">&#1056;&#1072;&#1089;&#1095;&#1105;&#1090;<a class="anchor-link" href="#%D0%A0%D0%B0%D1%81%D1%87%D1%91%D1%82">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>На шаге 2 будет решаться сама оптимизационная задача.
-Выглядит удобным описать оптимизационную модель в виде базового класса <strong>OptimizationModel</strong>,
-который будет содержать методы, необходимые для постановки задачи.
-Методы в классе <strong>OptimizationModel</strong>:</p>
+<p>Scipy и PYOMO имеют разные интерфейсы, чтобы как-то унифицировать работу с ними,
+будем наследоваться от базового класса, <a href="https://github.com/mbudylin/OptimizersArticle/blob/main/optimizers/optimizers.py">код класса</a>.</p>
+<p>Методы, которые необходимо реализовать для каждого солвера:</p>
 <ul>
 <li>init_objective - задание целевой функции,</li>
-<li>add_con_mrg - ограничений и метод,</li>
-<li>init_variables - задание переменных и границ.</li>
-<li>solve - поиск оптимального решения</li>
+<li>init_constraints - статические ограничения,</li>
+<li>add_constraints - динамические ограничения,</li>
+<li>solve - поиск оптимального решения.</li>
 </ul>
-<p>Таким образом, можно организовать единый интерфейс для решения различными пакетами.
-Реализация методов для каждой библиотеки будет отличаться, с чем можно ознакомиться в модуле optimizers.</p>
-<p>Запуск оптимизационной задачи теперь можно описать в виде функции, в которую поступают данные,
-модель для решения задачи, параметры ограничений — словарь и дополнительные опции для солвера <a href="https://github.com/mbudylin/OptimizersArticle/blob/main/optimizers/optimization.py">ссылка на github</a>.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pricing_optimization</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">opt_model</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_option</span><span class="o">=</span><span class="p">{}):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Запуск расчета оптимальных цен с помощью указанного класса оптимизатора и параметров</span>
-<span class="sd">    :param data: входные данные для оптимизации</span>
-<span class="sd">    :param opt_model: класс модели оптимизатора</span>
-<span class="sd">    :param opt_params: параметры оптимизации</span>
-<span class="sd">    :param solver: солвер для оптимизации</span>
-<span class="sd">    :param solver_option: параметры солвера</span>
-<span class="sd">    :return: словарь, возвращаемый моделью оптимизации</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="n">opt_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
-
-    <span class="n">model</span><span class="o">.</span><span class="n">init_variables</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">init_objective</span><span class="p">()</span>
-    <span class="c1"># ...</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">solver_option</span><span class="p">)</span>
-    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;model_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
-    <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-<p>Через opt_params можно управлять ограничениями, включать их по необходимости, задавать границы.
-Для наших задач он будет выглядеть так:</p>
-<div class="highlight"><pre><span></span><span class="n">opt_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="s1">&#39;con_mrg&#39;</span><span class="p">:</span> <span class="n">M_cur</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
+<p>Опишем далее отличия в реализации этих методов в Scipy и PYOMO.
+Другие примеры из официальной документации можно найти
+<a href="https://pyomo.readthedocs.io/en/stable/working_models.html">здесь, для pyomo</a> и
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">здесь, для scipy</a>.</p>
 
 </div>
 </div>
@@ -15326,16 +14827,7 @@ data['nlp']
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Реализации классов для оптимизационных задач</strong></p>
-<p>Описание классов здесь займет достаточно много места, детали можно найти <a href="https://github.com/mbudylin/OptimizersArticle/blob/main/optimizers/optimizers.py">тут, код-github</a>,
-где реализовано 4 класса:</p>
-<ul>
-<li><strong>ScipyNlpOptimizationModel</strong> для NLP постановки через Scipy</li>
-<li><strong>PyomoNlpOptimizationModel</strong> для NLP постановки через Pyomo</li>
-<li><strong>PyomoLpOptimizationModel</strong> для MILP постановки через Pyomo</li>
-<li><strong>CvxpyLpOptimizationModel</strong> для MILP постановки через Cvxpy</li>
-</ul>
-
+<h3 id="%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-init_objective">&#1052;&#1077;&#1090;&#1086;&#1076; init_objective<a class="anchor-link" href="#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-init_objective">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15346,64 +14838,17 @@ data['nlp']
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Теперь можно считать, что все готово для запуска и тестирования оптимизаторов.
-Рассмотрим на небольшом примере, что все отрабатывает корректно и выполняются все условия на примере двух классов оптимизационных моделей.</p>
+<p>В Scipy оптимизатор работает в режиме минимизации, поэтому суммарный оборот берём со знаком "-".</p>
+<p>В PYOMO функцию пересчёта суммарного оборота необходимо передать в переменную expr объекта pyo.Objective.</p>
+<div class="highlight"><pre><span></span><span class="c1"># SCIPY</span>
+<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_el</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
 
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tests.test_solvers</span> <span class="kn">import</span> <span class="n">test_solving</span>
-<span class="n">test_solving</span><span class="p">()</span>
+<span class="c1"># PYOMO</span>
+<span class="n">objective</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_el</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">))</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">maximize</span><span class="p">)</span>
 </pre></div>
 
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Long-step dual simplex will be used
-dR = +7.9%, dM = +0.0% - Изменение выручки и маржи в NLP задаче
-dR = +7.87%, dM = +0.01% - Изменение выручки и маржи в MILP задаче
-dR = +7.86%, dM = +0.62% - Изменение выручки и маржи в NLP задаче после округления
-Все товары в линейке имеют одинаковые цены: True
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B">&#1056;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;&#1099;<a class="anchor-link" href="#%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -15414,7 +14859,7 @@ dR = +7.86%, dM = +0.62% - Изменение выручки и маржи в NL
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B-%D0%B4%D0%BB%D1%8F-NLP-%D0%B8-MILP">&#1056;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;&#1099; &#1076;&#1083;&#1103; <strong>NLP</strong> &#1080; <strong>MILP</strong><a class="anchor-link" href="#%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B-%D0%B4%D0%BB%D1%8F-NLP-%D0%B8-MILP">&#182;</a></h3>
+<h3 id="%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B-init_constraints-%D0%B8-add_constraints">&#1052;&#1077;&#1090;&#1086;&#1076;&#1099; init_constraints &#1080; add_constraints<a class="anchor-link" href="#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B-init_constraints-%D0%B8-add_constraints">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15425,11 +14870,22 @@ dR = +7.86%, dM = +0.62% - Изменение выручки и маржи в NL
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Посмотрим за какое время и как они справятся с разным количеством товаров $n$, читай размерностью задачи.
-Для этого был написан <a href="https://github.com/mbudylin/OptimizersArticle/blob/main/runner.py">скрипт</a>, который пробегается по значениям $n$ = [10, 20, 50, 100, 200, 500, 1000] и данных,
-сгенерированных для набора seed'ов от 0 до 24, итого 25 тестов для каждой модели и размерности.
-Будем замерять время оптимизации, обернув функцию pricing_optimization декоратором.
-Во время предварительных запусков стало понятно, что некоторые оптимизаторы плохо справляются с размерностями $\gtrsim$ 100, поэтому чтобы лишний раз не греть атмосферу, было решено ограничить $n$ сверху для них.</p>
+<p>Ограничение на суммарную прибыль задаётся в методе init_constraints.</p>
+<p>Для Scipy ограничения передаются через NonlinearConstraint или LinearConstraint().</p>
+<p>Для PYOMO ограничения передаются через pyo.Constraint().</p>
+<div class="highlight"><pre><span></span><span class="c1"># SCIPY</span>
+<span class="k">def</span> <span class="nf">init_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">con_mrg</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_el</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">m</span>
+    <span class="n">constr</span> <span class="o">=</span> <span class="n">NonlinearConstraint</span><span class="p">(</span><span class="n">con_mrg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_min</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constr</span><span class="p">)</span>
+
+<span class="c1"># PYOMO</span>
+<span class="n">con_mrg_expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_el</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_min</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">con_mrg</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con_mrg_expr</span><span class="p">)</span>
+</pre></div>
 
 </div>
 </div>
@@ -15441,78 +14897,68 @@ dR = +7.86%, dM = +0.62% - Изменение выручки и маржи в NL
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-solve">&#1052;&#1077;&#1090;&#1086;&#1076; solve<a class="anchor-link" href="#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4-solve">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>В Scipy задача оптимизации запускается через minimize, а в PYOMO через проинициализированный объект SolverFactory методом solve.</p>
+<div class="highlight"><pre><span></span><span class="c1"># SCIPY</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span>
+                  <span class="n">method</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+                  <span class="n">constraints</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">,</span>
+                  <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+
+<span class="c1"># PYOMO</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="%D0%A0%D0%B0%D1%81%D1%87%D1%91%D1%82-%D0%B8-%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B">&#1056;&#1072;&#1089;&#1095;&#1105;&#1090; &#1080; &#1088;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;&#1099;<a class="anchor-link" href="#%D0%A0%D0%B0%D1%81%D1%87%D1%91%D1%82-%D0%B8-%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Так как оптимизаторы устанавливаются отдельно от python, то для получения аналогичных результатов можно
+воспользоваться Dockerfile, настроив контейнер, как описано в README проекта.</p>
 <p>Чтобы запустить расчёты, нужно выполнить команду:</p>
-<div class="highlight"><pre><span></span><span class="go">python runner.py</span>
+<div class="highlight"><pre><span></span><span class="go">python runner_simple.py -m pyomo</span>
+<span class="go">python runner_simple.py -m scipy</span>
 </pre></div>
-<p>Результаты замеров представлены ниже на графиках.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="./images/time_solve_compare.png" width="1000" align="c"/></p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%94%D0%BE%D0%BB%D1%8F-%D1%83%D1%81%D0%BF%D0%B5%D1%88%D0%BD%D0%BE-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87">&#1044;&#1086;&#1083;&#1103; &#1091;&#1089;&#1087;&#1077;&#1096;&#1085;&#1086; &#1088;&#1077;&#1096;&#1077;&#1085;&#1085;&#1099;&#1093; &#1079;&#1072;&#1076;&#1072;&#1095;<a class="anchor-link" href="#%D0%94%D0%BE%D0%BB%D1%8F-%D1%83%D1%81%D0%BF%D0%B5%D1%88%D0%BD%D0%BE-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87">&#182;</a></h3><p><img src="./images/success_rate.png" width="200" align="c"/></p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Жирной линией отображена медиана, а полупрозрачный коридор — это нижняя и верхняя квартили.</p>
-<p>По задаче NLP видно, что на низкоразмерных задачах (&lt;100), slsqp(scipy) вполне себе является лидером,
-а вот при больших размерностях, явно побеждает ipopt(pyomo).</p>
-<p>Trust-constr уже на старте всем уступает.</p>
-<p>Для MILP задачи асимптотики у всех плюс-минус похожи, интересно что для одного и того же солвера пакеты pyomo и cvxpy дают результаты отличающиеся по времени работы.
-Одна из причин этого в том, что pyomo во время объявления переменных, целевой функции и ограничений часть времени тратит н на преобразование в вид, который позволит передать задачу дальше во внешний солвер.
-Это может сильно повлиять на общее время решения, особенно это заметно, когда объявляется большое число ограничений.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B-%D0%B4%D0%BB%D1%8F-MINLP">&#1056;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;&#1099; &#1076;&#1083;&#1103; <strong>MINLP</strong><a class="anchor-link" href="#%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B-%D0%B4%D0%BB%D1%8F-MINLP">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Ограничение (3.5) реализовано в методе PyomoNlpOptimizationModel.add_con_chg_cnt.</p>
-<p><img src="./images/time_solve_minlp.png" width="900" align="c"/></p>
-<p>Как можно видеть, время решения задачи серьезно увеличивается, что не удивительно, саму по себе задачу NLP не всегда просто решить,
-а тут еще нужно учесть дискретные правила, которые увеличивают сложность.</p>
+<p>Для сравнения расчётов достаточно выполнить скрипт команду:</p>
+<div class="highlight"><pre><span></span><span class="go">python runner_simple.py -m compare</span>
+</pre></div>
+<p>Зависимость длительности поиска оптимального решения от количества переменных представлена на графике ниже.</p>
+<p><img src="./images/time_solve_simple.png" width="900" align="c"/></p>
+<p>Из графика можно сделать вывод, что PYOMO с солвером ipopt значительно превосходит Scipy с COBYLA при N &gt; 50.</p>
+<p>В некоторых точках Scipy.COBYLA не срабатывает и прерывается, что видно из пилообразной формы.
+Таким образом, Scipy.COBYLA работает для этой задачи нестабильно.</p>
+<p>Также хочется отметить, что PYOMO затрачивает много времени на подготовку данных во внутреннем формате для передачи
+во внешний солвер, что в некоторых случаях занимает больше времени, чем поиск решения.
+Об этом также будем более детально в статье 2, в которой также затронем вопрос зависимости времени поиска решения от числа ограничений.</p>
 
 </div>
 </div>
@@ -15535,157 +14981,15 @@ dR = +7.86%, dM = +0.62% - Изменение выручки и маржи в NL
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>В данной статье мы сравнили возможности и производительность нескольких открытых солверов на модельной задаче.
-Мы надеемся, что данная статья как-то облегчит жизнь тем, кто на практике сталкивается с моделированием подобных задач.
-Также отметим, что рассмотрены не все существующие солверы, а те, для которых есть хорошая документация, и которые мы использовали на практике.
-Будем рады услышать про ваш опыт реализации оптимизаторов в комментариях.
-Над статьёй работали Михаил Будылин, Антон Денисов, Михаил Дубровский.</p>
+<p>В данной статье мы:</p>
+<ul>
+<li>рассмотрели, какие задачи оптимизации бывают на практике,</li>
+<li>показали, как можно решать задачу ценообразования с помощью PYOMO,</li>
+<li>сравнили производительность солверов PYOMO и Scipy.</li>
+</ul>
+<p>В следующей стать более детально обсудим другие open-source солверы для python, их различия в реализации и производительности.</p>
+<p>Над статьёй работали Антон Денисов, Михаил Будылин.</p>
 
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D1%81%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BD%D0%B8%D1%8F">&#1044;&#1086;&#1087;&#1086;&#1083;&#1085;&#1080;&#1090;&#1077;&#1083;&#1100;&#1085;&#1099;&#1077; &#1087;&#1086;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1082;&#1080; &#1076;&#1083;&#1103; &#1088;&#1072;&#1089;&#1089;&#1084;&#1086;&#1090;&#1088;&#1077;&#1085;&#1080;&#1103;<a class="anchor-link" href="#%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D1%81%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BD%D0%B8%D1%8F">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%D0%97%D0%B0%D0%BA%D1%83%D0%BF%D0%BA%D0%B0">&#1047;&#1072;&#1082;&#1091;&#1087;&#1082;&#1072;<a class="anchor-link" href="#%D0%97%D0%B0%D0%BA%D1%83%D0%BF%D0%BA%D0%B0">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">D</span> <span class="o">=</span> <span class="mf">100.</span>
-<span class="n">x_l</span><span class="p">,</span> <span class="n">x_u</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">500.</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_l</span><span class="p">,</span> <span class="n">x_u</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">/</span> <span class="n">D</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="n">D</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="n">D</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x_l</span><span class="p">,</span> <span class="n">x_u</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="n">D</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Товарный запас x&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Реализуемый спрос d&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Пример функции фактического спроса от товарного запаса&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedImage jp-OutputArea-output ">
-<img src="data:image/png;base64,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OM95B+fJmok4T7fsBPzPfUzsHBEpIyJV3AcI5Wjr1q2n3Ox1xx138PDDD3P48GE6dOhwyjK9evWiV69e7N27l65du55S/tBDD9G9e3e2bt3KPffcc0r5U089xa233sratWt54IEHTil//vnnuf7661myZAmPP/74KeUvv/wyV111Fb/++ivPPffcKeVvv/02jRs3Zvr06bz00qmPafnggw+oX78+EydO5I033gBgxYoVxMfH8/TTT/P5559TvXp1Ro8ezfvvn5q7x4wZQ4UKFRgxYgQjRow4pXzy5MkUK1aM9957j6+/PvWRHImJiQC8/vrrTJo0KUvZOeecw5QpUwAYPHgwP/74Y5by8uXL4/F4APj73//Ob79lfZhqtWrV+Pxz59FDjz/+OEuWLMlSXq9ePT780Om0+/7772fdunVZyhs3bszbb78NwN13301SUlKW8hYtWvDKK84jl7p06cKff2Z9TErbtm0ZONB5DFH79u05cuRIlvJbbrmFv/3NebK4v5sMI3HfS05OpkyZMkBw9j1fn332WUTve48++igQG/teeno66enpqCrp6em0b9+eO+64g+TkZPr165elTFVp1aoV11xzDfv27WPo0KGEU6jP6VTySSQ7gUrucFWyPhgqyZ12StJxn9h5P0B8fDzJyclZytetW0diYiJHjx49pQxgzZo1JCYmkpKS4rd85cqVJCYmsnv3br/ly5cvp2TJkvzxxx9+y5cuXUrhwoXZsGGD3/JFixZx/PhxVqxY4bd8wYIFJCcns3TpUr/lc+fOZceOHSxfvpzk5GROnjzJvn37KFu2LCkpKfz2229s3LiRlStX+l1+9uzZlC5dmjVr1vgt//nnn0lISGDdunV+yzO++Bs3bjyl/MiRI97yzZs3n1Kenp7uLfdXf/Hx8d7ypKSkU8q3b9/uLd++ffsp5UlJSSQmJpKamsquXbtOKf/jjz+8y+/Zs4cDBw5kKd+8ebO3fN++fadclLFx40Zvub+6icR97+TJk97h/N73sov0fS81NZXExMR83fcyfvzXrl3LyJEjOXr0KGvWrGH//v3esox179+/n2PHjjF//nyOHDmSJSls3ryZiRMncvz4cTZs2MDJkydRVe88c+bMYeDAgZw4cYKTJ0+eUjdz5sxh0KCcH9y5YsUKhg0blmN5KAW1l2n3SGeSqjZ0x5PdZ4tnlO9X1bIiMgn4t6rOcqf/CDzjPvUzR/Xr19e1a9cGLf5o8M0333DHHXfw1ltv+T2yKoisu5NMVhcOVWXatGk0btyYAwcOcODAAQ4ePOj96/tKTU3N8XX48GEOHTrEoUOHOHz4cLg362wsVNWm4VhxqI90dmU0m4lIFZxHnwJsA6r7zFfNnWbyULlyZe6++24uueSScIdiTFCdOHGCffv2sX//fu/fjFdycrLfV0pKCikpKRw4cIDjx4+HexPyTZEiRShatKj3r+9wkSJFKFKkCPHx8VmGixYtSnx8PPHx8Xz66adhiz3USWcC0BP4t/t3vM/0R0TkK+BKICWv8znG0bJlS1q2bOk99DcmGmQ0C+/evZs9e/awZ88e9u7d6/27d+9e/vzzzyyvgwcPhjvsUyQkJFC8eHGKFy9OsWLFKFasGOecc06WYd9XQkKC32lFixb1DmeMFy1aNMtwxis+Ph4ROau4YzLpiMgonIsGKohIEjAIJ9l8LSJ9gC3AHe7sk4EOwAbgMNA7WHHFkg0bNhAfH0/NmjXDHYoxqCopKSls376dHTt2sGPHDnbu3MnOnTvZtWuX9++uXbvYu3cv6enpIY0vLi6OMmXKUKpUKe+rZMmSlCxZ0jtcokQJ79/ixYt7hzPGfV/FihWjUCHr1OV0BfPqtTtzKGrrZ14F+gUrllg1ePBgJk6cyO7du/Oe2ZizkJ6ezq5du9i6dStbt24lKSmJpKQktm3bRlJSEtu3b2f79u2nXHWVnwoVKkTZsmUpV64c5cqVo2zZst5XmTJlKFOmjHe4dOnSlC5d2jtcqlQp5syZQ5s2bYIWnwmM9UgQpU6cOMGECRPo2LEjhQvbx2jOzsmTJ0lKSmLz5s38/vvv3tcff/zBli1b2Lp1KydOnMjXdZYpU4Zzzz2Xc889l4oVK1KxYkUqVKhAhQoVKF++fJbh8uXLU6pUqbM6sjjbJimTP+zXKkrNnDmT5ORk6+DTBOzo0aNs3LiR9evXs3HjRjZs2MDGjRvZtGkTW7ZsIS0t7azXUbx4cc477zyqVKlClSpVqFy5svdVqVIlKlWq5E00RYoUyYetMtHGkk6U8ng8FC9enHbt2oU7FBNBVJVt27axevVq1q5dy4wZMxgyZAjr16/njz/+4GxukShXrhzVq1enevXqVKtWzfuqWrWq91WyZEk7ojC5sqQThVSViRMncvPNN1sHnwWUqpKUlMSKFStYuXIlK1euZNWqVaxevfqMr/KqXLkytWrVonbt2tSqVYuaNWtSq1YtatSoQY0aNShevHg+b4UpiCzpRCERYcmSJaSmpoY7FBMCR44cYcWKFSxZsoSlS5eybNmyHHsFyE2hQoWoWbMmdevWpU6dOtSpU4cLLriACy64gFq1allSMSFhSSdKZbSLm9iSmprK4sWLWbRoEQsXLmTRokWsWbPGb9cnOSlTpgwNGjTgwgsvpHDhwnTo0IH69etTu3ZtihYtGsTojcmbJZ0ok56ezl133UXPnj256absnXibaJKWlsbKlSuZM2cO8+bNY968eaxatSrg+1dKly5Nw4YNadiwIRdffDEXX3wxDRo0oFKlSt7zKtYNjok0lnSizPz58/nqq69o3759uEMxp2n//v389ttv/Prrr8yePZv58+dz6NChPJcTEerWrUvjxo1p3LgxjRo1olGjRlSrVs1O2puoY0knyng8HgoXLsytt94a7lBMHnbu3MlPP/3EL7/8ws8//8zy5cvzXEZEaNCgAU2bNqVJkyZcfvnlXHrppZQoUSIEERsTfJZ0ooiq4vF4aNu2LWXLlg13OCabP//8kxkzZjBz5kxmzpzJmjVr8lymWrVqNG/enCuvvJJmzZrRpEkTSzAmplnSiSLLli1j06ZNPPPMM+EOxQDHjx9n9uzZfP/990yfPp1Fixbleh9MXFwcl112GVdffTVXX301LVq0oFq1aiGM2Jjws6QTRQ4ePEiLFi3o3LlzuEMpsLZs2cJ3333H1KlTmTFjRq7nZIoUKULz5s1p1aoV1157Lc2bN7ejGFPgWdKJItdccw2//vpruMMoUNLT05k7dy4TJkxg0qRJrFixIsd54+LiaNasGW3btqVNmza0aNGCc845J4TRGhP5LOlEieTkZAoVKkSpUqXCHUrMO378OD/++CPffvstEyZMYOfOnTnOe/7553PTTTfRrl07WrduTenSpUMYqTHRx5JOlBg2bBiDBw9m+/btlCtXLtzhxJxjx47xww8/MGbMGMaPH09KSorf+YoUKUKbNm24+eabad++PXXq1AlxpMZEN0s6UWLs2LE0btzYEk4+SktLY8aMGXz11VeMHTs2x0RTsWJFOnbsyK233krbtm3tvIwxZ8GSThTYvHkzixYt4tVXXw13KFFPVVm0aBGfffYZo0aNyvEBeDVr1qRLly7cdttttGjRgri4uBBHakxssqQTBcaOHQtgz845Czt37uSzzz5jxIgRrFq1yu88tWvX5o477qBbt240adLE7vY3Jggs6UQBj8dD48aNOf/888MdSlRJS0tjypQpfPTRR0yePNlvp5mVK1emR48e9OjRg2bNmlmiMSbILOlEgeHDh/Pnn3+GO4yosWfPHl544QU+/vhjkpKSTikvXrw4t99+O3fffTdt27a1pjNjQsiSThRo0KBBuEOIeKpKYmIiw4YNY9y4cX57am7ZsiW9e/emW7dudjGAMWFiSSfCvfzyyzRv3pzrrrsu3KFEpCNHjvDFF1/w9ttvs3LlylPKzz33XHr37k2fPn2oW7duGCI0xviypBPB9u7dy8CBA3nuuecs6WSze/duhg0bxnvvvcfevXtPKW/Tpg0PPfQQnTp1okiRImGI0BjjjyWdCDZ+/HjS09O5/fbbwx1KxNi4cSOvv/46n376KceOHctSVrx4cXr27EnTpk3p3bt3mCI0xuTGkk4E83g81K5dm8aNG4c7lLBbsWIFQ4YM4euvvz7lfE2NGjXo378/ffv2pXTp0iQmJoYnSGNMnizpRKjk5GSmT5/OY489VqAv4128eDEvvfSS914lX02bNmXAgAHcfvvtFC5su7Ix0cC+qRFq06ZNnHfeeQX2htDly5czaNAgxo0bd0pZu3bteOaZZ2jTpk2BTsjGRCNLOhGqSZMmbN68OdxhhNy6desYNGgQo0ePPuWBaJ07d+b555/n8ssvD1N0xpizZUknAp04cQIRKVBNRjt27ODFF1/ko48+OqXngK5duzJw4EAaNWoUpuiMMfmlULgDMKcaP348VapUYd26deEOJehSU1MZNGgQderU4f/+7/+yJJyOHTuyePFivvnmG0s4xsSIgvOvdBTxeDyICBdccEG4Qwma9PR0/ve///Hcc8+xY8eOLGVt2rThlVde4corrwxTdMaYYLGkE2GOHj3KpEmTuPPOO2O2T7Bff/2V/v37s3DhwizTGzVqxH/+8x9uvPFGu0DAmBgVluY1EXlCRFaKyAoRGSUiCSJSW0TmisgGERktIgXyNvLp06eTmpoakzeE7tq1i169enH11VdnSThVqlTh008/ZdGiRdx0002WcIyJYSFPOiJSFegPNFXVhkAc0AP4D/CWqtYB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
-"
-class="
-jp-needs-light-background
-"
->
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Имеется некоторый горизонт $T$ планирования закупки для поддержания товарооборота, предположим 1 неделя(еженедельные закупки).</p>
-<p>Количетво уникальных товаров - $n$, они сформированны в группы по потребностям $g$, $|g| = m$ - количество групп, 
-$g^{(j)}$ - содержит товары, принадлежащих группе с номером $j$, $|g^{(j)}|$ - размер группы</p>
-<p>На начало периода имеется товарных запасов $x_{0, i}, i=1..n$ для каждой позиции</p>
-<p>$D_{i}$ - уровень спроса при полной товарной достаточности/доступности (т.е. сколько бы у нас приобрели бы товара, если бы он был всегда доступен)</p>
-<p>Так как количество товара не бесконесно, то реальный/фактический спрос будет зависеть от имеющихся запасов, в простейшем случае можно полагать, что реальный спрос, может быть описан так $d(x) = min(D, x)$.</p>
-<p>В общем случае с учетом неопределенностей вид $d$ будет уже другой, но одни из основных свойств:</p>
-<p>$d(x) \to x$, при $x \to 0$ - означает, что если товара немного, то он весь будет реализован</p>
-<p>$d(x) \to D$, при $x \to \infty$ - означает, что полностью реализуется спрос на товар(не можем продать больше, чем могут купить, если по-простому)</p>
-<p>Уровень сервиса $S$ - доля покрытия спроса $D$ имеющимися запасами, $S = \cfrac{d}{D}$</p>
-<p>Оценка оборачиваемости $K$ - характерное время, в течение которого распродается остаток $x$, $K = T \cdot \cfrac{x}{D}$</p>
-<p>$I$ - бюджет под закупки на период $T$</p>
-<p>для каждого товара $i$:</p>
-<p>$P_{i}$ - цена товара</p>
-<p>$C_{i}$ - себестоимость товара(считаем, что текущие остатки имеют такую же себестоимость что и при закупке)</p>
-<p>$R_{i} = P_{i} \cdot d_{i}(x_{i})$ - выручка за период $T$</p>
-<p>$M_{i} = (P_{i} - C_{i}) \cdot d_{i}(x_{i})$ - маржа за период $T$</p>
-<p>$M^{(p)}_{i} = \cfrac{M_{i}}{P_{i}}$ - маржинальность в процентах от выручки</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h5 id="%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-A">&#1055;&#1086;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1082;&#1072; A<a class="anchor-link" href="#%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-A">&#182;</a></h5><p>Имеется бюджет на закупки $I$</p>
-<p>Максимизиовать один из показателей $R$, $M$, удерживая другой не ниже заданного уровня($M_{0}$, $R_{0}$).</p>
-<p>Альтернатива - максимизировать $R$, поддерживая определенный уровень маржинальности $M^{(p)}$</p>
-<p>Поддерживать уровень сервиса в каждой группе не ниже заданного $S_{j}$ (покрытие спроса)</p>
-<p>Не превышать оборачиваемость для каждого товара выше заданного уровня $K_{i}$ (снижение рисков получения олд-стоков)</p>
-<p>Итого вариант A</p>
-$$M = \sum_{i=1}^{n} (P_{i} - C_{i}) \cdot d_{i}(x_{i}) \to max$$$$R = \sum_{i=1}^{n} P_{i} \cdot d_{i}(x_{i}) \geqslant R_{0}$$$$\sum_{i=1}^{n} C_{i} \cdot (x_{i} - x^{(0)}_{i}) \leqslant I$$$$\sum_{i \in g_{j}} d_{i}(x_{i}) \geqslant  S_{j} \cdot \sum_{i \in g_{j}} D_{i}, \ \ \ j = 1..|g|$$$$x_{i} \leqslant \frac{K_{i} \cdot D_{i}}{T}, \ \ \ i=1..n$$
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h5 id="%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-B">&#1055;&#1086;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1082;&#1072; B<a class="anchor-link" href="#%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-B">&#182;</a></h5><p>Поддерживать выручку и маржу не ниже заданного уровня $R_{0}$, $M_{0}$</p>
-<p>Поддерживать уровень сервиса в каждой группе не ниже заданного $S_{j}$</p>
-<p>Не превышать оборачиваемость для каждого товара выше заданного уровня $K_{i}$</p>
-<p>Подобрать такой вариант, при котором бюджет на закупку будет минимален</p>
-$$I = \sum_{i=1}^{n} C_{i} \cdot (x_{i} - x^{(0)}_{i}) \to min$$$$M = \sum_{i=1}^{n} (P_{i} - C_{i}) \cdot d_{i}(x_{i}) \geqslant M_{0}$$$$R = \sum_{i=1}^{n} P_{i} \cdot d_{i}(x_{i}) \geqslant R_{0}$$$$\sum_{i \in g_{j}} d_{i}(x_{i}) \geqslant  S_{j} \cdot \sum_{i \in g_{j}} D_{i}, \ \ \ j = 1..|g|$$$$x_{i} \leqslant \frac{K_{i} \cdot D_{i}}{T}, \ \ \ i=1..n$$
 </div>
 </div>
 </div>
