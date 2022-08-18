@@ -1,20 +1,31 @@
 Материалы для трёх статей по оптимизаторам.
 
 Необходимо предварительно установить солверы, как описано ниже.
+Наиболее простой способ установки необходимых пакетов для оптимизаторов осуществляется
+через пакетный менеджер conda(идет в составе [Anaconda](https://www.anaconda.com/) 
+или [Miniconda](https://docs.conda.io/en/latest/miniconda.html))
 
 
-## Для статьи 3:
-### Локальный запуск
+### Установка через conda
+Пример сборки:
 
-Установить солверы и requirements (python 3.8)
+1. Создать окружение 
+```
+conda create --name opt_conda_env python=3.8
+```
+2. Запуск окружения
+```
+conda activate opt_conda_env
+```
+3. Установка необходимых пакетов
+```
+conda install -c conda-forge conda_requirements.txt
+```
+4. Добавление окружения в jupyter
+```
+python -m ipykernel install --user --name=opt_conda_env
+```
 
-1) cbc: https://ampl.com/products/solvers/open-source/
-    прокинуть в .bash_profile путь к бинарнику.
-
-2) ipopt: https://ampl.com/products/solvers/open-source/
-    прокинуть в .bash_profile путь к бинарнику.
-
-3) cvxopt отсюда https://cvxopt.org/install/
 
 ### Запуск в докере
 
@@ -28,9 +39,14 @@ docker build -t opt .
 docker run -dp 3000:3000 -w /app -v "$(pwd):/app" -i -t opt
 ```
 
-3. Вставить CONTAINER ID (из команды docker ps) в команду:
+Запуск контейнера с возможностью запустить jupyter lab
 ```
-docker attach ..
+docker run -dp 8888:8888 -w /app -v (pwd):/app -i -t opt 
+```
+
+3. Подставить CONTAINER ID (из команды docker ps) в команду:
+```
+docker attach <CONTAINER ID>
 ```
 
 4. Далее, в контейнере запустить расчёты:
@@ -38,7 +54,12 @@ docker attach ..
 python runner.py
 ```
 
-5. Выйти из контейнера: 
+5. Запуск jupyter lab в контейнере
+```
+jupyter-lab --ip=0.0.0.0 --no-browser --allow-root
+```
+
+6. Выйти из контейнера: 
 ```
 exit
 ```
