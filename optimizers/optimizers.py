@@ -38,12 +38,10 @@ class OptimizationModel(abc.ABC):
         self.C = self.data['C'].values
 
         # границы для индексов
-        if 'x_lower' in self.data.columns:
+        if 'x_lower' in self.data.columns and 'x_upper' in self.data.columns:
             self.x_lower = self.data['x_lower'].values
-        if 'x_upper' in self.data.columns:
             self.x_upper = self.data['x_upper'].values
-        if 'x_init' in self.data.columns:
-            self.x_init = self.data['x_init'].values
+            self.x_init = 0.5 * (self.x_lower + self.x_upper)
 
     @abc.abstractmethod
     def init_variables(self):

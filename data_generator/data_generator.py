@@ -31,8 +31,6 @@ def generate_simple_data(N, seed=0):
     data['x_lower'] = 0.85 * data['PC'] / data['P']
     data['x_upper'] = 1.15 * data['PC'] / data['P']
 
-    data['x_init'] = 0.5 * (data['x_lower'] + data['x_upper'])
-
     data.drop('PC', axis=1, inplace=True)
 
     return data
@@ -87,7 +85,6 @@ def construct_bounds(df, bounds_params):
     df.loc[ix, 'x_lower'] = df.loc[ix, 'x_bnd_lower']
     df.loc[ix, 'x_upper'] = df.loc[ix, 'x_bnd_upper']
 
-    df['x_init'] = 0.5 * (df['x_lower'] + df['x_upper'])
     # df['x_cur'] = 1.0
     df.drop(columns=['x_bnd_lower', 'x_bnd_upper'], inplace=True)
 
