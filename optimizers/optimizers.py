@@ -100,7 +100,7 @@ class ScipyNlpOptimizationModel(OptimizationModel):
         self.x0 = None
         self.constraints = {}
         # нормировка для целевой функции
-        self.k = 0.1 * sum(self.P * self.Q)
+        self.k = 0.01 * sum(self.P * self.Q)
 
     def _el(self, E, x):
         return np.exp(E * (x - 1.0))
@@ -129,9 +129,9 @@ class ScipyNlpOptimizationModel(OptimizationModel):
     def add_con_mrg(self, m_min):
         def con_mrg(x):
             x_ = x[self.plu_line_idx[self.plu_idx]]
-            m = sum((self.P * x_ - self.C) * self.Q * self._el(self.E, x_))
+            m = sum((self.P * x_ - self.C) * self.Q * self._el(self.E, x_)) / self.k
             return m
-        constr = NonlinearConstraint(con_mrg, m_min, np.inf)
+        constr = NonlinearConstraint(con_mrg, m_min / self.k, np.inf)
         self.constraints['con_mrg'] = constr
 
     def solve(self, solver='slsqp', options={}):
